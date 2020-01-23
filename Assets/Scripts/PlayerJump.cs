@@ -1,41 +1,44 @@
 ﻿using UnityEngine;
 
-public class PlayerJump : MonoBehaviour
+namespace Assets.Scripts
 {
-    #region Declarations --------------------------------------------------
-
-    private PlayerController _player;
-    private bool _jumpRequest;
-
-    [Range(1, 10)] public float jumpVelocity;
-
-    #endregion
-
-
-    #region Private/Protected Methods -------------------------------------
-
-    private void Awake()
+    public class PlayerJump : MonoBehaviour
     {
-        _player = FindObjectOfType<PlayerController>();
-    }
+        #region Declarations --------------------------------------------------
 
-    private void Update()
-    {
-        _player.animator.SetBool("Grounded", _player.isGrounded);
+        private PlayerController _player;
+        private bool _jumpRequest;
 
-        if (Input.GetButtonDown("Jump") && _player.isGrounded) _jumpRequest = true;
-    }
+        [Range(1, 10)] public float jumpVelocity;
 
-    private void FixedUpdate()
-    {
-        if (_jumpRequest)
+        #endregion
+
+
+        #region Private/Protected Methods -------------------------------------
+
+        private void Awake()
         {
-            _player.rigidBody.AddForce(Vector2.up * jumpVelocity, ForceMode2D.Impulse);
-
-            _jumpRequest = false;
-            _player.isGrounded = false;
+            _player = FindObjectOfType<PlayerController>();
         }
-    }
 
-    #endregion
+        private void Update()
+        {
+            _player.animator.SetBool("Grounded", _player.isGrounded);
+
+            if (Input.GetButtonDown("Jump") && _player.isGrounded) _jumpRequest = true;
+        }
+
+        private void FixedUpdate()
+        {
+            if (_jumpRequest)
+            {
+                _player.rigidBody.AddForce(Vector2.up * jumpVelocity, ForceMode2D.Impulse);
+
+                _jumpRequest = false;
+                _player.isGrounded = false;
+            }
+        }
+
+        #endregion
+    }
 }
