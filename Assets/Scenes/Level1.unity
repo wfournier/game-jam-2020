@@ -179,7 +179,7 @@ Transform:
   - {fileID: 5014035817353023568}
   - {fileID: 214865538}
   m_Father: {fileID: 754115947}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &172956889
 GameObject:
@@ -1112,8 +1112,8 @@ Transform:
   - {fileID: 1994767122}
   - {fileID: 205231468}
   - {fileID: 1798691440}
-  - {fileID: 1934733924}
   - {fileID: 12052780}
+  - {fileID: 1934733924}
   - {fileID: 7186957700960387}
   m_Father: {fileID: 1458195285}
   m_RootOrder: 1
@@ -2621,9 +2621,6 @@ GameObject:
   - component: {fileID: 1864110963}
   - component: {fileID: 1864110962}
   - component: {fileID: 1864110964}
-  - component: {fileID: 1864110968}
-  - component: {fileID: 1864110969}
-  - component: {fileID: 1864110966}
   - component: {fileID: 1864110965}
   m_Layer: 9
   m_Name: Player
@@ -2770,6 +2767,10 @@ MonoBehaviour:
   dead: 0
   invulnerabilityWindow: 2
   respawnPosition: {x: 0, y: 0, z: 0}
+  moveSpeed: 5
+  jumpVelocity: 7.5
+  fallMultiplier: 2.5
+  lowJumpMultiplier: 2
 --- !u!95 &1864110965
 Animator:
   serializedVersion: 3
@@ -2789,46 +2790,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1864110966
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1864110959}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c99a619856ac8d54bba68e60215aeb1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fallMultiplier: 2.5
-  lowJumpMultiplier: 12
---- !u!114 &1864110968
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1864110959}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8298fe2eea86d3c4ebfd549ad8185e87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 5
---- !u!114 &1864110969
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1864110959}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07b87b50956ab2441966d3cd39b98c3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jumpVelocity: 7.5
 --- !u!1001 &1934733923
 PrefabInstance:
   m_ObjectHideFlags: 0
