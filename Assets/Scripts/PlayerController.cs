@@ -106,16 +106,16 @@ namespace Assets.Scripts
             float xScale;
             var speed = moveSpeed;
 
-            if (Input.GetAxisRaw("Horizontal") < 0f) // LEFT
+            if (InputManager.HorizontalDir == InputManager.HorizontalDirections.Left)
             {
                 speed *= -1;
                 xScale = -1;
             }
-            else if (Input.GetAxisRaw("Horizontal") > 0f) // RIGHT
+            else if (InputManager.HorizontalDir == InputManager.HorizontalDirections.Right)
             {
                 xScale = 1;
             }
-            else // NOT MOVING
+            else
             {
                 rigidBody.velocity = new Vector2(0f, rigidBody.velocity.y);
                 return;
@@ -127,7 +127,7 @@ namespace Assets.Scripts
 
         private void Jump()
         {
-            if (Input.GetButtonDown("Jump") && isGrounded)
+            if (InputManager.JumpButton && isGrounded)
             {
                 rigidBody.AddForce(Vector2.up * jumpVelocity, ForceMode2D.Impulse);
                 isGrounded = false;
