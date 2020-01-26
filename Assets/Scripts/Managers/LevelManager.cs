@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections;
+using Assets.Scripts.Controllers;
+using Assets.Scripts.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Managers
 {
     public class LevelManager : MonoBehaviour
     {
         #region Declarations --------------------------------------------------
 
         private PlayerController _player;
-        private Camera _mainCamera;
+        private UnityEngine.Camera _mainCamera;
 
         public float waitToRespawn;
         public GameObject deathEffect;
@@ -97,7 +99,7 @@ namespace Assets.Scripts
         private void Start()
         {
             _player = FindObjectOfType<PlayerController>();
-            _mainCamera = Camera.main;
+            _mainCamera = UnityEngine.Camera.main;
             healthBar = FindObjectOfType<HealthBar>();
 
             UpdateUICounters();

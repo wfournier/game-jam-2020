@@ -1,9 +1,9 @@
 ﻿using Assets.Scripts.Managers;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.EnvironmentInteractables
 {
-    public class KillPlayer : MonoBehaviour
+    public class Key : MonoBehaviour
     {
         #region Declarations --------------------------------------------------
 
@@ -25,7 +25,11 @@ namespace Assets.Scripts
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag("Player")) _levelManager.RespawnPlayer();
+            if (other.CompareTag("Player"))
+            {
+                _levelManager.AddKey(1);
+                Destroy(gameObject);
+            }
         }
 
         #endregion

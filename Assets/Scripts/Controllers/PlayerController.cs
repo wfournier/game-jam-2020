@@ -1,7 +1,8 @@
 ﻿using System;
+using Assets.Scripts.Managers;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Controllers
 {
     public class PlayerController : MonoBehaviour
     {
@@ -125,11 +126,14 @@ namespace Assets.Scripts
             transform.localScale = new Vector3(xScale, 1f, 1f);
         }
 
-        private void Jump()
+        public void Jump(bool forceJump = false, float velocity = 0f)
         {
-            if (InputManager.JumpButton && isGrounded)
+            if ((InputManager.JumpButton || forceJump) && isGrounded)
             {
-                rigidBody.AddForce(Vector2.up * jumpVelocity, ForceMode2D.Impulse);
+                if (velocity <= 0f)
+                    velocity = jumpVelocity;
+
+                rigidBody.AddForce(Vector2.up * velocity, ForceMode2D.Impulse);
                 isGrounded = false;
             }
 

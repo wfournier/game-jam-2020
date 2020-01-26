@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Managers
 {
     public class InputManager : MonoBehaviour
     {
@@ -22,6 +22,7 @@ namespace Assets.Scripts
         public static HorizontalDirections HorizontalDir { get; set; }
         public static VerticalDirections VerticalDir { get; set; }
         public static bool JumpButton { get; set; }
+        public static bool AttackButton { get; set; }
 
 
         // Start is called before the first frame update
@@ -40,6 +41,7 @@ namespace Assets.Scripts
             SetHorizontalDirection();
             SetVerticalDirection();
             JumpButton = Input.GetButtonDown("Jump");
+            AttackButton = Input.GetButtonDown("Attack");
         }
 
         public void Jump(bool jumping)
@@ -47,11 +49,18 @@ namespace Assets.Scripts
             JumpButton = jumping;
         }
 
+        public void Attack(bool attacking)
+        {
+            AttackButton = attacking;
+        }
+
         private void SetHorizontalDirection()
         {
-            if (Input.GetAxisRaw("Horizontal") < 0f)
+            
+
+            if (Input.GetAxisRaw("Horizontal") < -0.7f)
                 HorizontalDir = HorizontalDirections.Left;
-            else if (Input.GetAxisRaw("Horizontal") > 0f)
+            else if (Input.GetAxisRaw("Horizontal") > 0.7f)
                 HorizontalDir = HorizontalDirections.Right;
             else
                 HorizontalDir = HorizontalDirections.Idle;
@@ -59,12 +68,14 @@ namespace Assets.Scripts
 
         private void SetVerticalDirection()
         {
-            if (Input.GetAxisRaw("Vertical") < 0f)
+            if (Input.GetAxisRaw("Vertical") < -0.7f)
                 VerticalDir = VerticalDirections.Up;
-            else if (Input.GetAxisRaw("Vertical") > 0f)
+            else if (Input.GetAxisRaw("Vertical") > 0.7f)
                 VerticalDir = VerticalDirections.Down;
             else
                 VerticalDir = VerticalDirections.Idle;
+            
+            Debug.Log(VerticalDir.ToString());
         }
     }
 }
