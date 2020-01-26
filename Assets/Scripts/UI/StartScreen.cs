@@ -1,8 +1,6 @@
-﻿using UnityEditor;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.UI
 {
     public class StartScreen : MonoBehaviour
     {

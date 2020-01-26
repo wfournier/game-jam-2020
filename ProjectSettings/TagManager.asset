@@ -8,6 +8,7 @@ TagManager:
   - Item
   - Checkpoint
   - MovingPlatform
+  - Manager
   layers:
   - Default
   - TransparentFX
@@ -42,6 +43,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Far_Background
+    uniqueID: 2601734179
+    locked: 0
+  - name: Background
+    uniqueID: 3069391513
+    locked: 0
   - name: World Objects
     uniqueID: 1185256177
     locked: 0

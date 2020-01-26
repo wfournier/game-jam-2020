@@ -1,13 +1,15 @@
 ﻿using Assets.Scripts.Managers;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.EnvironmentInteractables
 {
-    public class KillPlayer : MonoBehaviour
+    public class Coin : MonoBehaviour
     {
         #region Declarations --------------------------------------------------
 
         private LevelManager _levelManager;
+
+        public int coinValue = 1;
 
         #endregion
 
@@ -25,7 +27,11 @@ namespace Assets.Scripts
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag("Player")) _levelManager.RespawnPlayer();
+            if (other.CompareTag("Player"))
+            {
+                _levelManager.AddCoins(coinValue);
+                Destroy(gameObject);
+            }
         }
 
         #endregion
