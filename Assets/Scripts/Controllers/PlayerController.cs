@@ -21,7 +21,7 @@ namespace Assets.Scripts.Controllers
         [HideInInspector] 
         public LevelManager levelManager;
 
-        [Tooltip("This is how deep the player's feet overlap with the ground")]
+        [Tooltip("This is how deep the player's feet overlap with the ground")] //TODO change tooltip
         public float groundedSkin = 0.05f;
 
         public LayerMask groundLayer;
