@@ -58,6 +58,16 @@ namespace Assets.Scripts
                 var playerVelocity = _levelManager.player.GetComponent<Rigidbody2D>().velocity;
                 var directionX = Math.Sign(playerVelocity.x);
                 var directionY = Math.Sign(playerVelocity.y);
+                if (playerVelocity.x == 0 && playerVelocity.y == 0)
+                {
+                    _levelManager.RemoveHealth(10*damage);
+                    //directionX = -Math.Sign(_levelManager.player.transform.position.x - gameObject.transform.position.x);
+                    //playerVelocity.x = -12*directionX;
+                    //playerVelocity.x = 20;
+                    //playerVelocity.x = 5 * directionX;
+                    return;
+                }
+                    
 
                 var tempPlayerVelocityX = -playerVelocity.x;
 
