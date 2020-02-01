@@ -26,6 +26,7 @@ namespace Assets.Scripts.Controllers
 
         public LayerMask groundLayer;
         public LayerMask killZoneLayer;
+        public bool isTouchingWall;
         public bool isGrounded;
         public bool isInKillZone;
         public bool invulnerable;
@@ -34,8 +35,6 @@ namespace Assets.Scripts.Controllers
         [Range(0.1f, 10f)] public float invulnerabilityWindow;
 
         public Vector3 respawnPosition;
-
-
 
         [Header("Movement Settings")]
 
@@ -92,14 +91,30 @@ namespace Assets.Scripts.Controllers
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.gameObject.CompareTag("MovingPlatform")) 
+            if (other.gameObject.CompareTag("MovingPlatform"))
+            {
                 transform.parent = other.transform;
+            }
+
+            else if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            {
+                var pointOfContact = other.contacts[0].normal;
+
+                // Checks if we hit left or right edge, respectively.
+                if (pointOfContact == Vector2.left || pointOfContact == Vector2.right)
+                {
+                    // this.rigidBody.AddForce(Vector2.up * this.jumpVelocity, ForceMode2D.Impulse);
+                    this.isTouchingWall = true;
+                }
+            }
         }
 
         private void OnCollisionExit2D(Collision2D other)
         {
             if (other.gameObject.CompareTag("MovingPlatform")) 
                 transform.parent = null;
+
+            this.isTouchingWall = false;
         }
 
         private void Move()
@@ -143,9 +158,23 @@ namespace Assets.Scripts.Controllers
             if ((InputManager.JumpButton || forceJump) && isGrounded)
             {
                 if (velocity <= 0f)
+                {
                     velocity = jumpVelocity;
+                }
 
-                rigidBody.AddForce(Vector2.up * velocity, ForceMode2D.Impulse);
+                if (this.isTouchingWall)
+                {
+                    this.rigidBody.AddForce(
+                        new Vector2(this.levelManager.player.transform.localScale.x, 1).normalized * velocity,
+                        ForceMode2D.Impulse
+                    );
+                }
+
+                else
+                {
+                    this.rigidBody.AddForce(Vector2.up * velocity, ForceMode2D.Impulse);
+                }
+
                 isGrounded = false;
             }
 
