@@ -28,7 +28,6 @@ namespace Assets.Scripts
         private float _currentTimeUntilReady = 0.0f;
         private DashState _currentDashState = DashState.Ready;
 
-
         void Start()
         {
             this._levelManager = FindObjectOfType<LevelManager>();
