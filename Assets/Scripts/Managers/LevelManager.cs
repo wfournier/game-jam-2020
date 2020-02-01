@@ -15,6 +15,8 @@ namespace Assets.Scripts.Managers
 
         private Camera _mainCamera;
 
+        public Collider2D startCameraBounds;
+
         public float waitToRespawn;
         public GameObject deathEffect;
 
@@ -49,6 +51,8 @@ namespace Assets.Scripts.Managers
 
         public void SetHealthMax()
         {
+            if (healthBar == null) return;
+            
             healthBar.Set(healthBar.totalHealth);
         }
 
@@ -106,7 +110,7 @@ namespace Assets.Scripts.Managers
 
         private void Update()
         {
-            if (healthBar.currentHealth <= 0 && !player.dead)
+            if (healthBar != null && healthBar.currentHealth <= 0 && !player.dead)
                 RespawnPlayer();
         }
 
@@ -147,6 +151,7 @@ namespace Assets.Scripts.Managers
 
             yield return new WaitForSeconds(waitToRespawn);
 
+            _mainCamera.GetComponent<CameraController>().cameraBounds = startCameraBounds;
             player.transform.position = player.respawnPosition;
             player.Respawn();
 
