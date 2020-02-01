@@ -25,6 +25,8 @@ namespace Assets.Scripts.Controllers
         // Update is called once per frame
         private void Update()
         {
+            if (player == null) return;
+            
             _min = cameraBounds.bounds.min;
             _max = cameraBounds.bounds.max;
             _cameraOrthographicSize = GetComponent<Camera>().orthographicSize;

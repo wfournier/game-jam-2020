@@ -30,7 +30,7 @@ namespace Assets.Scripts.Controllers
         public bool isInKillZone;
         public bool invulnerable;
         public bool dead;
-        public bool canJump;
+        public bool canJump = true;
 
         [HideInInspector]
         public bool firstGrounded;

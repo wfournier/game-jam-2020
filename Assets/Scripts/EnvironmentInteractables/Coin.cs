@@ -29,6 +29,9 @@ namespace Assets.Scripts.EnvironmentInteractables
         {
             if (other.CompareTag("Player"))
             {
+                if (!_levelManager.coinsEnabled)
+                    _levelManager.coinsEnabled = true;
+                
                 _levelManager.AddCoins(coinValue);
                 Destroy(gameObject);
             }
