@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Managers;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts
 {
@@ -18,7 +19,8 @@ namespace Assets.Scripts
         public const float DashDuration = 0.1f;
         public const float DashCooldown = 1.5f;
 
-        public GameObject DashTrails = null;
+        public GameObject DashTrails;
+        public ProgressBar DashCooldownProgressBar; 
 
         private LevelManager _levelManager = null;
         private Vector2 _previousVelocity;
@@ -30,6 +32,9 @@ namespace Assets.Scripts
         void Start()
         {
             this._levelManager = FindObjectOfType<LevelManager>();
+
+            this.DashCooldownProgressBar.SetMinValue(0);
+            this.DashCooldownProgressBar.SetMaxValue(Dash.DashCooldown);
         }
 
         void Update()
@@ -60,33 +65,47 @@ namespace Assets.Scripts
             // Current state is DASHING, trigger dash.
             else if (this._currentDashState == DashState.Dashing)
             {
-                this.DashTrails.SetActive(true);
-                this._currentDashTime += Time.fixedDeltaTime;
-
-                float playerDirection = this._levelManager.player.transform.localScale.x;
-                this._levelManager.player.rigidBody.AddForce(Vector2.right * (Dash.ForceModifier * playerDirection), ForceMode2D.Impulse);
-
-                if (this._currentDashTime >= Dash.DashDuration)
-                {
-                    this.DashTrails.SetActive(false);
-                    this._levelManager.player.rigidBody.velocity = this._previousVelocity;
-
-                    this._currentDashTime = 0.0f;
-                    this._currentTimeUntilReady = Dash.DashCooldown;
-                    this._currentDashState = DashState.Cooldown;
-                }
+                this.TriggerDash();
             }
 
             // Current state is COOLDOWN, decrease timer and reset state if needed.
             else
             {
-                this._currentTimeUntilReady -= Time.fixedDeltaTime;
+                this.DecreaseCooldownTimer();
+            }
+        }
 
-                if (this._currentTimeUntilReady <= 0.0f)
-                {
-                    this._currentTimeUntilReady = 0.0f;
-                    this._currentDashState = DashState.Ready;
-                }
+        private void TriggerDash()
+        {
+            this.DashTrails.SetActive(true);
+            this._currentDashTime += Time.fixedDeltaTime;
+
+            float playerDirection = this._levelManager.player.transform.localScale.x;
+            this._levelManager.player.rigidBody.AddForce(Vector2.right * (Dash.ForceModifier * playerDirection), ForceMode2D.Impulse);
+
+            if (this._currentDashTime >= Dash.DashDuration)
+            {
+                this.DashTrails.SetActive(false);
+                this._levelManager.player.rigidBody.velocity = this._previousVelocity;
+
+                this._currentDashTime = 0.0f;
+                this._currentTimeUntilReady = Dash.DashCooldown;
+                this._currentDashState = DashState.Cooldown;
+            }
+        }
+
+        private void DecreaseCooldownTimer()
+        {
+            this._currentTimeUntilReady -= Time.fixedDeltaTime;
+            this.DashCooldownProgressBar.Show();
+            this.DashCooldownProgressBar.SetValue(Dash.DashCooldown - this._currentTimeUntilReady);
+
+            if (this._currentTimeUntilReady <= 0.0f)
+            {
+                this._currentTimeUntilReady = 0.0f;
+                this.DashCooldownProgressBar.SetValue(0);
+                this.DashCooldownProgressBar.Hide();
+                this._currentDashState = DashState.Ready;
             }
         }
     }
