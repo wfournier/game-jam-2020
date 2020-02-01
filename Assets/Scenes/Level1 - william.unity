@@ -3712,8 +3712,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 3
-  forceX: 2000
-  forceY: 500
 --- !u!50 &1404586435
 Rigidbody2D:
   serializedVersion: 4
@@ -4931,7 +4929,8 @@ MonoBehaviour:
   isInKillZone: 0
   invulnerable: 0
   dead: 0
-  invulnerabilityWindow: 2
+  invulnerabilityWindow: 1.4
+  flashTimer: 0.1
   respawnPosition: {x: 0, y: 0, z: 0}
   moveSpeed: 5
   jumpVelocity: 7.5

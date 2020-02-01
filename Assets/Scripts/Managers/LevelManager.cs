@@ -3,7 +3,6 @@ using System.Collections;
 using Assets.Scripts.Controllers;
 using Assets.Scripts.UI;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.Managers
@@ -12,10 +11,9 @@ namespace Assets.Scripts.Managers
     {
         #region Declarations --------------------------------------------------
 
-        [HideInInspector]
-        public PlayerController player;
-        
-        private UnityEngine.Camera _mainCamera;
+        [HideInInspector] public PlayerController player;
+
+        private Camera _mainCamera;
 
         public float waitToRespawn;
         public GameObject deathEffect;
@@ -100,7 +98,7 @@ namespace Assets.Scripts.Managers
         private void Start()
         {
             player = FindObjectOfType<PlayerController>();
-            _mainCamera = UnityEngine.Camera.main;
+            _mainCamera = Camera.main;
             healthBar = FindObjectOfType<HealthBar>();
 
             UpdateUICounters();
@@ -116,8 +114,19 @@ namespace Assets.Scripts.Managers
         {
             player.invulnerable = true;
 
-            yield return new WaitForSeconds(player.invulnerabilityWindow);
+            var transparent = true;
+            var invulnTimer = 0f;
+            while (invulnTimer < player.invulnerabilityWindow)
+            {
+                var alpha = transparent ? 0.5f : 1.0f;
+                invulnTimer += player.flashTimer;
+                player.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, alpha);
+                transparent = !transparent;
 
+                yield return new WaitForSeconds(player.flashTimer);
+            }
+
+            player.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
             player.invulnerable = false;
         }
 

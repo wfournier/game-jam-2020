@@ -32,10 +32,11 @@ namespace Assets.Scripts.Controllers
         public bool dead;
 
         [Range(0.1f, 10f)] public float invulnerabilityWindow;
-
+        
+        [Range(0.1f, 1f)]
+        public float flashTimer;
+        
         public Vector3 respawnPosition;
-
-
 
         [Header("Movement Settings")]
 
@@ -50,6 +51,7 @@ namespace Assets.Scripts.Controllers
         public float jumpVelocity;
         public float fallMultiplier = 2.5f;
         public float lowJumpMultiplier = 2f;
+        
         #endregion
 
 
@@ -106,7 +108,6 @@ namespace Assets.Scripts.Controllers
         {
             var activeVelocity = rigidBody.velocity;
             float xScale;
-            var speed = moveSpeed;
             
             
             if (InputManager.HorizontalDir == InputManager.HorizontalDirections.Left)
