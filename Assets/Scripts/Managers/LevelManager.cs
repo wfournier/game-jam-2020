@@ -56,6 +56,10 @@ namespace Assets.Scripts.Managers
                 healthBar.Remove(value);
                 StartCoroutine(InvulnerableCo());
             }
+            else
+            {
+                RespawnPlayer();
+            }
         }
 
         public void SetHealth(int value)
@@ -66,8 +70,6 @@ namespace Assets.Scripts.Managers
 
         public void SetHealthMax()
         {
-            if (healthBar == null) return;
-
             if (healthBarEnabled)
                 healthBar.Set(healthBar.totalHealth);
         }
@@ -138,7 +140,7 @@ namespace Assets.Scripts.Managers
             coinsParentObject.gameObject.SetActive(coinsEnabled);
             keysParentObject.gameObject.SetActive(keysEnabled);
 
-            if (healthBar != null && healthBar.currentHealth <= 0 && !player.dead)
+            if (healthBarEnabled && healthBar.currentHealth <= 0 && !player.dead)
                 RespawnPlayer();
         }
 

@@ -105,20 +105,20 @@ MonoBehaviour:
   startCameraBounds: {fileID: 0}
   player: {fileID: 0}
   waitToRespawn: 1
-  deathEffectEnabled: 0
+  deathEffectEnabled: 1
   deathEffect: {fileID: 8735009372917959078, guid: 850baf1780a63f04996f931d5ff2e713,
     type: 3}
-  healthBarEnabled: 0
+  healthBarEnabled: 1
   healthBar: {fileID: 0}
   coinsEnabled: 1
-  keysEnabled: 0
+  keysEnabled: 1
   coinCount: 0
   keyCount: 0
   coinText: {fileID: 0}
   keyText: {fileID: 0}
   coinsParentObject: {fileID: 0}
   keysParentObject: {fileID: 0}
-  isSoundEnabled: 0
+  isSoundEnabled: 1
 --- !u!114 &7866250869096059224
 MonoBehaviour:
   m_ObjectHideFlags: 0

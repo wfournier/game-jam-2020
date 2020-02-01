@@ -22,6 +22,31 @@ namespace Assets.Scripts
             _levelManager = FindObjectOfType<LevelManager>();
         }
 
+        private void Update()
+        {
+        }
+
+//        private void OnCollisionEnter2D(Collision2D collision)
+//        {
+//            if (collision.otherCollider.CompareTag("Player"))
+//            {
+//                if (_levelManager.player.invulnerable) return;
+//
+//                _levelManager.RemoveHealth(damage);
+//
+//                var playerVelocity = _levelManager.player.GetComponent<Rigidbody2D>().velocity;
+//                var directionX = Math.Sign(playerVelocity.x);
+//                var directionY = Math.Sign(playerVelocity.y);
+//                
+//                var normalVector = collision.GetContact(0).normal;
+//                var speedVector = Vector2.Reflect(playerVelocity, normalVector);
+//                speedVector += 10 * speedVector.normalized;
+//
+//                _levelManager.player.GetComponent<Rigidbody2D>().AddForce(
+//                    speedVector, ForceMode2D.Impulse);
+//            }
+//        }
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag("Player"))
