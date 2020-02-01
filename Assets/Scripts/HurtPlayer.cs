@@ -31,7 +31,7 @@ namespace Assets.Scripts
             {
                 if (_levelManager.player.invulnerable) return;
 
-                _levelManager.RemoveHealth(0);
+                _levelManager.RemoveHealth(damage);
 
                 var playerVelocity = _levelManager.player.GetComponent<Rigidbody2D>().velocity;
                 var directionX = Math.Sign(playerVelocity.x);

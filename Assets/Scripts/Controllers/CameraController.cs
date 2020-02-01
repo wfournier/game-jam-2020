@@ -5,10 +5,10 @@ namespace Assets.Scripts.Controllers
     public class CameraController : MonoBehaviour
     {
         #region Declarations --------------------------------------------------
-        public GameObject target;
+        public PlayerController player;
         public float followAhead;
         public float smoothing;
-        public BoxCollider2D cameraBounds;
+        public Collider2D cameraBounds;
 
         private Vector3 _targetPosition;
         private Vector3 _min;
@@ -20,19 +20,22 @@ namespace Assets.Scripts.Controllers
         #region Private/Protected Methods -------------------------------------
         public void Start()
         {
-            _min = cameraBounds.bounds.min;
-            _max = cameraBounds.bounds.max;
-            _cameraOrthographicSize = GetComponent<Camera>().orthographicSize;
         }
 
         // Update is called once per frame
         private void Update()
         {
+            _min = cameraBounds.bounds.min;
+            _max = cameraBounds.bounds.max;
+            _cameraOrthographicSize = GetComponent<Camera>().orthographicSize;
+            
+            if (!player.firstGrounded) return;
+            
             var cameraHalfWidth = _cameraOrthographicSize * ((float)Screen.width / Screen.height);
 
-            _targetPosition = new Vector3(target.transform.position.x, target.transform.position.y, transform.position.z);
+            _targetPosition = new Vector3(player.transform.position.x, player.transform.position.y, transform.position.z);
 
-            var newX = target.transform.localScale.x > 0f ? 
+            var newX = player.transform.localScale.x > 0f ? 
                 _targetPosition.x + followAhead :
                 _targetPosition.x - followAhead;
 

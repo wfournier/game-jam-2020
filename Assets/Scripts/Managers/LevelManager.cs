@@ -3,7 +3,6 @@ using System.Collections;
 using Assets.Scripts.Controllers;
 using Assets.Scripts.UI;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.Managers
@@ -12,15 +11,22 @@ namespace Assets.Scripts.Managers
     {
         #region Declarations --------------------------------------------------
 
+        public Collider2D startCameraBounds;
+
         [HideInInspector]
         public PlayerController player;
         
-        private UnityEngine.Camera _mainCamera;
+        private Camera _mainCamera;
 
         public float waitToRespawn;
+        public bool deathEffectEnabled;
         public GameObject deathEffect;
 
+        public bool healthBarEnabled;
         public HealthBar healthBar;
+
+        public bool coinsEnabled;
+        public bool keysEnabled;
 
         public int coinCount;
         public int keyCount;
@@ -28,6 +34,10 @@ namespace Assets.Scripts.Managers
         public Text coinText;
         public Text keyText;
 
+        public GameObject coinsParentObject;
+        public GameObject keysParentObject;
+
+        public bool isSoundEnabled;
         #endregion
 
 
@@ -35,23 +45,31 @@ namespace Assets.Scripts.Managers
 
         public void AddHealth(int value)
         {
-            healthBar.Add(value);
+            if(healthBarEnabled)
+                healthBar.Add(value);
         }
 
         public void RemoveHealth(int value)
         {
-            healthBar.Remove(value);
-            StartCoroutine(InvulnerableCo());
+            if (healthBarEnabled)
+            {
+                healthBar.Remove(value);
+                StartCoroutine(InvulnerableCo());
+            }
         }
 
         public void SetHealth(int value)
         {
-            healthBar.Set(value);
+            if(healthBarEnabled)
+                healthBar.Set(value);
         }
 
         public void SetHealthMax()
         {
-            healthBar.Set(healthBar.totalHealth);
+            if (healthBar == null) return;
+
+            if (healthBarEnabled)
+                healthBar.Set(healthBar.totalHealth);
         }
 
         public void RespawnPlayer()
@@ -62,28 +80,35 @@ namespace Assets.Scripts.Managers
 
         public void AddCoins(int count)
         {
-            SetCoinCount(coinCount + count);
+            if(coinsEnabled)
+                SetCoinCount(coinCount + count);
         }
 
         public void RemoveCoins(int count)
         {
-            SetCoinCount(coinCount - count);
+            if(coinsEnabled)
+                SetCoinCount(coinCount - count);
         }
 
         public void SetCoinCount(int count)
         {
-            coinCount = count;
-            UpdateCoinText();
+            if (coinsEnabled)
+            {
+                coinCount = count;
+                UpdateCoinText();
+            }
         }
 
         public void AddKey(int count)
         {
-            SetKeyCount(keyCount + count);
+            if (keysEnabled)
+                SetKeyCount(keyCount + count);
         }
 
         public void RemoveKey(int count)
         {
-            SetKeyCount(keyCount - count);
+            if (keysEnabled)
+                SetKeyCount(keyCount - count);
         }
 
         public void SetKeyCount(int count)
@@ -99,8 +124,9 @@ namespace Assets.Scripts.Managers
 
         private void Start()
         {
+            isSoundEnabled = false;
             player = FindObjectOfType<PlayerController>();
-            _mainCamera = UnityEngine.Camera.main;
+            _mainCamera = Camera.main;
             healthBar = FindObjectOfType<HealthBar>();
 
             UpdateUICounters();
@@ -108,7 +134,11 @@ namespace Assets.Scripts.Managers
 
         private void Update()
         {
-            if (healthBar.currentHealth <= 0 && !player.dead)
+            healthBar.gameObject.SetActive(healthBarEnabled);
+            coinsParentObject.gameObject.SetActive(coinsEnabled);
+            keysParentObject.gameObject.SetActive(keysEnabled);
+
+            if (healthBar != null && healthBar.currentHealth <= 0 && !player.dead)
                 RespawnPlayer();
         }
 
@@ -116,8 +146,19 @@ namespace Assets.Scripts.Managers
         {
             player.invulnerable = true;
 
-            yield return new WaitForSeconds(player.invulnerabilityWindow);
+            var transparent = true;
+            var invulnTimer = 0f;
+            while (invulnTimer < player.invulnerabilityWindow)
+            {
+                var alpha = transparent ? 0.5f : 1.0f;
+                invulnTimer += player.flashTimer;
+                player.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, alpha);
+                transparent = !transparent;
 
+                yield return new WaitForSeconds(player.flashTimer);
+            }
+
+            player.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
             player.invulnerable = false;
         }
 
@@ -134,10 +175,12 @@ namespace Assets.Scripts.Managers
                 : playerPosition;
 
             player.Kill();
-            Instantiate(deathEffect, effectPosition, playerRotation);
+            if(deathEffectEnabled)
+                Instantiate(deathEffect, effectPosition, playerRotation);
 
             yield return new WaitForSeconds(waitToRespawn);
 
+            _mainCamera.GetComponent<CameraController>().cameraBounds = startCameraBounds;
             player.transform.position = player.respawnPosition;
             player.Respawn();
 
