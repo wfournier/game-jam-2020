@@ -108,23 +108,26 @@ namespace Assets.Scripts.Controllers
             float xScale;
             var speed = moveSpeed;
             
-            
             if (InputManager.HorizontalDir == InputManager.HorizontalDirections.Left)
             {
                 if (activeVelocity.x > -moveSpeed)
                 {
                     activeVelocity.x -= 0.5f;
                 }
+
                 xScale = -1;
             }
+
             else if (InputManager.HorizontalDir == InputManager.HorizontalDirections.Right)
             {
                 if (activeVelocity.x < moveSpeed)
                 {
                     activeVelocity.x += 0.5f;
                 }
+
                 xScale = 1;
             }
+
             else
             {
                 rigidBody.velocity = new Vector2(0f, rigidBody.velocity.y);

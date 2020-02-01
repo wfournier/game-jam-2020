@@ -5807,6 +5807,7 @@ GameObject:
   - component: {fileID: 1864110964}
   - component: {fileID: 1864110965}
   - component: {fileID: 1864110966}
+  - component: {fileID: 1864110967}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -5993,6 +5994,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DashTrails: {fileID: 1730323533}
   DashCooldownProgressBar: {fileID: 531719656}
+--- !u!114 &1864110967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1864110959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 939fb6968998f49d79f3a63a0a4a07b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1940108844
 GameObject:
   m_ObjectHideFlags: 0

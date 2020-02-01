@@ -55,19 +55,16 @@ namespace Assets.Scripts
 
         private void FixedUpdate()
         {
-            // Current state is READY, return and wait for next input.
             if (this._currentDashState == DashState.Ready)
             {
                 return;
             }
 
-            // Current state is DASHING, trigger dash.
             else if (this._currentDashState == DashState.Dashing)
             {
                 this.TriggerDash();
             }
 
-            // Current state is COOLDOWN, decrease timer and reset state if needed.
             else
             {
                 this.DecreaseCooldownTimer();
