@@ -10,14 +10,5 @@ namespace Assets.Scripts.Platforms
         public AudioClip jumpSound;
         private LevelManager _levelManager;
 
-        void Start()
-        {
-
-        }
-
-        void Update()
-        {
-
-        }
     }
 }
