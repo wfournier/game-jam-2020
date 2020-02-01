@@ -104,16 +104,25 @@ namespace Assets.Scripts.Controllers
 
         private void Move()
         {
+            var activeVelocity = rigidBody.velocity;
             float xScale;
             var speed = moveSpeed;
-
+            
+            
             if (InputManager.HorizontalDir == InputManager.HorizontalDirections.Left)
             {
-                speed *= -1;
+                if (activeVelocity.x > -moveSpeed)
+                {
+                    activeVelocity.x -= 0.5f;
+                }
                 xScale = -1;
             }
             else if (InputManager.HorizontalDir == InputManager.HorizontalDirections.Right)
             {
+                if (activeVelocity.x < moveSpeed)
+                {
+                    activeVelocity.x += 0.5f;
+                }
                 xScale = 1;
             }
             else
@@ -122,7 +131,7 @@ namespace Assets.Scripts.Controllers
                 return;
             }
 
-            rigidBody.velocity = new Vector2(speed, rigidBody.velocity.y);
+            rigidBody.velocity = new Vector2(activeVelocity.x, rigidBody.velocity.y);
             transform.localScale = new Vector3(xScale, 1f, 1f);
         }
 

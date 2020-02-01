@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Managers;
+﻿using System;
+using Assets.Scripts.Managers;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -26,7 +27,19 @@ namespace Assets.Scripts
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag("Player")) _levelManager.RemoveHealth(damage);
+            if (other.CompareTag("Player"))
+            {
+                if (_levelManager.player.invulnerable) return;
+
+                _levelManager.RemoveHealth(0);
+
+                var playerVelocity = _levelManager.player.GetComponent<Rigidbody2D>().velocity;
+                var directionX = Math.Sign(playerVelocity.x);
+                var directionY = Math.Sign(playerVelocity.y);
+
+                _levelManager.player.GetComponent<Rigidbody2D>().AddForce(
+                    new Vector2(-playerVelocity.x - 10 * directionX, -playerVelocity.y - 10 * directionY), ForceMode2D.Impulse);
+            }
         }
 
         #endregion
