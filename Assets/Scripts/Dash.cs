@@ -56,16 +56,16 @@ namespace Assets.Scripts
             // Current state is DASHING, trigger dash.
             else if (this._currentDashState == DashState.Dashing)
             {
-                int playerDirectionX = Math.Sign(this._levelManager.Player.rigidBody.velocity.x);
+                int playerDirectionX = Math.Sign(this._levelManager.player.rigidBody.velocity.x);
 
                 if (playerDirectionX == 0 || playerDirectionX == 1)
                 {
-                    this._levelManager.Player.rigidBody.AddForce(Vector2.right * Dash.ForceModifier, ForceMode2D.Impulse);
+                    this._levelManager.player.rigidBody.AddForce(Vector2.right * Dash.ForceModifier, ForceMode2D.Impulse);
                 }
 
                 else
                 {
-                    this._levelManager.Player.rigidBody.AddForce(Vector2.left * Dash.ForceModifier, ForceMode2D.Impulse); ;
+                    this._levelManager.player.rigidBody.AddForce(Vector2.left * Dash.ForceModifier, ForceMode2D.Impulse); ;
                 }
 
                 this._currentTimeUntilReady = Dash.DashCooldown;
