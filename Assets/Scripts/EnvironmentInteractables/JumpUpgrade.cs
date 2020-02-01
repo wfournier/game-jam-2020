@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.Controllers;
+using TMPro;
+using UnityEditor.Experimental.UIElements;
 using UnityEngine;
 
 public class JumpUpgrade : MonoBehaviour
 {
 
     private PlayerController _player;
-    
+
     public GameObject toUnhide;
     
     void Start()
@@ -27,7 +30,7 @@ public class JumpUpgrade : MonoBehaviour
         {
             _player.canJump = true;
             _player.Jump(true);
-            
+
             toUnhide.SetActive(true);
             Destroy(gameObject);
         }
