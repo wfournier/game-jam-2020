@@ -12,6 +12,7 @@ namespace Assets.Scripts.Controllers
         public bool active;
 
         private SpriteRenderer _spriteRenderer;
+        
 
         #endregion
 
@@ -31,11 +32,7 @@ namespace Assets.Scripts.Controllers
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (!active && other.CompareTag("Player"))
-            {
-                _spriteRenderer.sprite = flagOpened;
-                active = true;
-            }
+            _spriteRenderer.sprite = flagOpened;
         }
 
         #endregion
