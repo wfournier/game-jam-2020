@@ -72,14 +72,15 @@ namespace Assets.Scripts
                     goodSignalCounter++;
                 }
             }
-
             if(goodSignalCounter == buttonList.Length && !OrderisRight())
             {
-                for (int i = 0; i < buttonList.Length; i++)
+                foreach (Button btn in buttonList)
                 {
-                    Button currentBtn = buttonList[i];
-                    currentBtn.buttonReset();
-                }          
+                    btn.buttonReset();
+                }
+                for (int i = 0; i < input.Length; i++)
+                    input[i] = 10 + i;
+                currentPlacement = 0;
             }
         }
     }
