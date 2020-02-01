@@ -12,29 +12,12 @@ namespace Assets.Scripts.Platforms
 
         void Start()
         {
-            this._levelManager = FindObjectOfType<LevelManager>();
+
         }
 
         void Update()
         {
-            
-        }
 
-        private void OnCollisionEnter2D(Collision2D other)
-        {
-            Vector2 contactPoint = other.GetContact(0).normal;
-
-            if (contactPoint == Vector2.left || contactPoint == Vector2.right)
-            {
-                return;
-            }
-
-             this._levelManager.player.Jump(true, this.jumpMagnitude * 2);
-
-            if (jumpSound != null)
-            {
-                AudioSource.PlayClipAtPoint(jumpSound, transform.position);
-            }
         }
     }
 }

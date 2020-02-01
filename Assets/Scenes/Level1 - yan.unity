@@ -398,6 +398,9 @@ MonoBehaviour:
   sceneName: Level1.5
   keysRequired: 0
   requireCommand: 0
+  promptDuration: 60
+  keyPromptObject: {fileID: 0}
+  text: {fileID: 0}
 --- !u!1 &172956889
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,7 +642,7 @@ PrefabInstance:
     - target: {fileID: 7288032191696849106, guid: ac8cd37cda75e8d4f9a22c17cd46c833,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7288032191696849106, guid: ac8cd37cda75e8d4f9a22c17cd46c833,
         type: 3}
@@ -1199,7 +1202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 174a1630ea280944c8c54aacca3bdc6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1864110959}
+  player: {fileID: 1864110964}
   followAhead: 5
   smoothing: 2
   cameraBounds: {fileID: 2087287407}
@@ -1815,7 +1818,7 @@ PrefabInstance:
     - target: {fileID: 7288032191696849106, guid: ac8cd37cda75e8d4f9a22c17cd46c833,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7288032191696849106, guid: ac8cd37cda75e8d4f9a22c17cd46c833,
         type: 3}
@@ -2853,6 +2856,9 @@ MonoBehaviour:
   sceneName: Level2
   keysRequired: 2
   requireCommand: 1
+  promptDuration: 60
+  keyPromptObject: {fileID: 0}
+  text: {fileID: 0}
 --- !u!1 &1004867353
 GameObject:
   m_ObjectHideFlags: 0
@@ -2930,7 +2936,7 @@ PrefabInstance:
     - target: {fileID: 8506359145279041169, guid: 04da181d52edfa1459e51c7ec29b528d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8506359145279041169, guid: 04da181d52edfa1459e51c7ec29b528d,
         type: 3}
@@ -4844,11 +4850,11 @@ BoxCollider2D:
   m_GameObject: {fileID: 1400013989}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 724b43c6d096f42c8a41ad7217b19e30, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.005531788, y: 0.044254303}
+  m_Offset: {x: -0.005531788, y: 0.055999756}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -4859,7 +4865,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9446821, y: 0.31405926}
+  m_Size: {x: 0.9446821, y: 0.29056835}
   m_EdgeRadius: 0
 --- !u!1 &1404586433 stripped
 GameObject:
@@ -6311,7 +6317,10 @@ MonoBehaviour:
   isInKillZone: 0
   invulnerable: 0
   dead: 0
+  canJump: 1
+  firstGrounded: 0
   invulnerabilityWindow: 2
+  flashTimer: 0
   respawnPosition: {x: 0, y: 0, z: 0}
   moveSpeed: 5
   jumpVelocity: 7.5
@@ -7240,7 +7249,7 @@ PrefabInstance:
     - target: {fileID: 5770405119965512897, guid: 75ab2ba281e6a5d48b1f94626ca84152,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5770405119965512897, guid: 75ab2ba281e6a5d48b1f94626ca84152,
         type: 3}
