@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Controllers;
+using Assets.Scripts.Managers;
 using UnityEngine;
 
 namespace Assets.Scripts.Platforms
@@ -7,24 +8,33 @@ namespace Assets.Scripts.Platforms
     {
 		public float jumpMagnitude = 20;
         public AudioClip jumpSound;
-
-        private GameObject _player;
+        private LevelManager _levelManager;
 
         void Start()
         {
-            _player = GameObject.FindWithTag("Player");
+            this._levelManager = FindObjectOfType<LevelManager>();
         }
 
         void Update()
         {
-            if (_player.GetComponent<BoxCollider2D>()
-                .IsTouching(gameObject.GetComponent<BoxCollider2D>()))
-            {
-                _player.GetComponent<PlayerController>().Jump(true, jumpMagnitude);
+            
+        }
 
-                if (jumpSound != null)
-                    AudioSource.PlayClipAtPoint(jumpSound, transform.position);
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            Vector2 contactPoint = other.GetContact(0).normal;
+
+            if (contactPoint == Vector2.left || contactPoint == Vector2.right)
+            {
+                return;
+            }
+
+             this._levelManager.player.Jump(true, this.jumpMagnitude * 2);
+
+            if (jumpSound != null)
+            {
+                AudioSource.PlayClipAtPoint(jumpSound, transform.position);
             }
         }
-	}
+    }
 }
