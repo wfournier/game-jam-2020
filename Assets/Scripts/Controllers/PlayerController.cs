@@ -67,6 +67,7 @@ namespace Assets.Scripts.Controllers
         private void Update()
         {
             animator.SetBool("Grounded", isGrounded);
+            animator.SetBool("TouchingWall", this.isTouchingWall);
             animator.SetFloat("SpeedX", Math.Abs(rigidBody.velocity.x));
             Move();
             Jump();
@@ -103,7 +104,6 @@ namespace Assets.Scripts.Controllers
                 // Checks if we hit left or right edge, respectively.
                 if (pointOfContact == Vector2.left || pointOfContact == Vector2.right)
                 {
-                    // this.rigidBody.AddForce(Vector2.up * this.jumpVelocity, ForceMode2D.Impulse);
                     this.isTouchingWall = true;
                 }
             }
@@ -178,12 +178,17 @@ namespace Assets.Scripts.Controllers
                 isGrounded = false;
             }
 
-            if (rigidBody.velocity.y < 0)
-                rigidBody.gravityScale = fallMultiplier;
-            else if (rigidBody.velocity.y > 0 && !Input.GetButton("Jump"))
-                rigidBody.gravityScale = lowJumpMultiplier;
-            else
-                rigidBody.gravityScale = 1f;
+            if (!this.isTouchingWall)
+            {
+                if (rigidBody.velocity.y < 0)
+                    rigidBody.gravityScale = fallMultiplier;
+
+                else if (rigidBody.velocity.y > 0 && !Input.GetButton("Jump"))
+                    rigidBody.gravityScale = lowJumpMultiplier;
+
+                else
+                    rigidBody.gravityScale = 1f;
+            }
         }
 
         public void Kill()
