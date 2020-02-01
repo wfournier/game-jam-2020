@@ -3,6 +3,7 @@ using System.Collections;
 using Assets.Scripts.Controllers;
 using Assets.Scripts.UI;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.Managers
@@ -11,7 +12,9 @@ namespace Assets.Scripts.Managers
     {
         #region Declarations --------------------------------------------------
 
-        private PlayerController _player;
+        [HideInInspector]
+        public PlayerController player;
+        
         private UnityEngine.Camera _mainCamera;
 
         public float waitToRespawn;
@@ -37,8 +40,6 @@ namespace Assets.Scripts.Managers
 
         public void RemoveHealth(int value)
         {
-            if (_player.invulnerable) return;
-
             healthBar.Remove(value);
             StartCoroutine(InvulnerableCo());
         }
@@ -98,7 +99,7 @@ namespace Assets.Scripts.Managers
 
         private void Start()
         {
-            _player = FindObjectOfType<PlayerController>();
+            player = FindObjectOfType<PlayerController>();
             _mainCamera = UnityEngine.Camera.main;
             healthBar = FindObjectOfType<HealthBar>();
 
@@ -107,38 +108,38 @@ namespace Assets.Scripts.Managers
 
         private void Update()
         {
-            if (healthBar.currentHealth <= 0 && !_player.dead)
+            if (healthBar.currentHealth <= 0 && !player.dead)
                 RespawnPlayer();
         }
 
         private IEnumerator InvulnerableCo()
         {
-            _player.invulnerable = true;
+            player.invulnerable = true;
 
-            yield return new WaitForSeconds(_player.invulnerabilityWindow);
+            yield return new WaitForSeconds(player.invulnerabilityWindow);
 
-            _player.invulnerable = false;
+            player.invulnerable = false;
         }
 
         private IEnumerator RespawnPlayerCo()
         {
-            var playerTransform = _player.transform;
+            var playerTransform = player.transform;
 
             var playerPosition = playerTransform.position;
             var playerRotation = playerTransform.rotation;
 
             var cameraPosition = _mainCamera.transform.position;
-            var effectPosition = _player.isInKillZone
+            var effectPosition = player.isInKillZone
                 ? new Vector3(playerPosition.x, cameraPosition.y - _mainCamera.orthographicSize)
                 : playerPosition;
 
-            _player.Kill();
+            player.Kill();
             Instantiate(deathEffect, effectPosition, playerRotation);
 
             yield return new WaitForSeconds(waitToRespawn);
 
-            _player.transform.position = _player.respawnPosition;
-            _player.Respawn();
+            player.transform.position = player.respawnPosition;
+            player.Respawn();
 
             SetHealthMax();
             SetCoinCount((int) Math.Ceiling((float) coinCount / 2));
