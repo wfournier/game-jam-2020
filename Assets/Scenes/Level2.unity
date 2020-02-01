@@ -2524,6 +2524,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1459712588583300993, guid: 0619968b11a4c5745a291af62605dc8c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1459712588583300997, guid: 0619968b11a4c5745a291af62605dc8c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3911,6 +3916,31 @@ PrefabInstance:
       propertyPath: keysParentObject
       value: 
       objectReference: {fileID: 1174566162}
+    - target: {fileID: 7866250868196305274, guid: ddb55c1e6a2917a49b8f7a1d0d87f657,
+        type: 3}
+      propertyPath: coinsEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7866250868196305274, guid: ddb55c1e6a2917a49b8f7a1d0d87f657,
+        type: 3}
+      propertyPath: keysEnabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7866250868196305274, guid: ddb55c1e6a2917a49b8f7a1d0d87f657,
+        type: 3}
+      propertyPath: healthBarEnabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7866250868196305274, guid: ddb55c1e6a2917a49b8f7a1d0d87f657,
+        type: 3}
+      propertyPath: deathEffectEnabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7866250868196305274, guid: ddb55c1e6a2917a49b8f7a1d0d87f657,
+        type: 3}
+      propertyPath: isSoundEnabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7866250868196305275, guid: ddb55c1e6a2917a49b8f7a1d0d87f657,
         type: 3}
       propertyPath: m_Name
