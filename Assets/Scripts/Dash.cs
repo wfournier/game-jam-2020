@@ -13,7 +13,7 @@ namespace Assets.Scripts
 
     public class Dash : MonoBehaviour
     {
-        public const float ForceModifier = 150.0f;
+        public const float ForceModifier = 10.0f;
         public const KeyCode DashKeyCode = KeyCode.LeftShift;
         public const float DashCooldown = 2.0f;
 
@@ -65,7 +65,7 @@ namespace Assets.Scripts
 
                 else
                 {
-                    this._levelManager.player.rigidBody.AddForce(Vector2.left * Dash.ForceModifier, ForceMode2D.Impulse); ;
+                    this._levelManager.player.rigidBody.AddForce(Vector2.left * Dash.ForceModifier, ForceMode2D.Impulse);
                 }
 
                 this._currentTimeUntilReady = Dash.DashCooldown;
