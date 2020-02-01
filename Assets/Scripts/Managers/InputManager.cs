@@ -74,8 +74,6 @@ namespace Assets.Scripts.Managers
                 VerticalDir = VerticalDirections.Down;
             else
                 VerticalDir = VerticalDirections.Idle;
-            
-            Debug.Log(VerticalDir.ToString());
         }
     }
 }

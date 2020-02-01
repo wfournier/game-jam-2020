@@ -19,14 +19,14 @@ namespace Assets.Scripts.Managers
         private Camera _mainCamera;
 
         public float waitToRespawn;
-        public bool deathEffectEnabled;
+        public bool deathEffectEnabled = true;
         public GameObject deathEffect;
 
-        public bool healthBarEnabled;
+        public bool healthBarEnabled = true;
         public HealthBar healthBar;
 
-        public bool coinsEnabled;
-        public bool keysEnabled;
+        public bool coinsEnabled = true;
+        public bool keysEnabled = true;
 
         public int coinCount;
         public int keyCount;
