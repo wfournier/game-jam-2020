@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.CameraScripts;
+﻿using System;
+using Assets.Scripts.CameraScripts;
 using Assets.Scripts.Managers;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ namespace Assets.Scripts
     public class ActivateAnimationAndSound : MonoBehaviour
     {
         #region Declarations --------------------------------------------------
+        public GameObject backgrounds;
 
         private LevelManager _levelManager;
         private GameObject _player;
@@ -28,7 +30,7 @@ namespace Assets.Scripts
             if (other.CompareTag("Player"))
             {
                 _player.GetComponent<Animator>().enabled = true;
-                _camera.GetComponent<BackgroundParallax>().enabled = true;
+                backgrounds.SetActive(true);
                 _levelManager.deathEffectEnabled = true;
                 _levelManager.isSoundEnabled = true;
                 Destroy(gameObject);

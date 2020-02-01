@@ -30,7 +30,6 @@ namespace Assets.Scripts.Controllers
         public bool isInKillZone;
         public bool invulnerable;
         public bool dead;
-        public bool canJump = true;
 
         [HideInInspector]
         public bool firstGrounded;
@@ -55,7 +54,7 @@ namespace Assets.Scripts.Controllers
         public float jumpVelocity;
         public float fallMultiplier = 2.5f;
         public float lowJumpMultiplier = 2f;
-        
+        public bool canJump = true;
         #endregion
 
 
@@ -75,7 +74,11 @@ namespace Assets.Scripts.Controllers
         {
             if (!firstGrounded && isGrounded)
                 firstGrounded = true;
-            
+            if(!isGrounded && gameObject.GetComponent<Rigidbody2D>().velocity.y < 0)
+                animator.SetBool("Falling", true);
+            else if (isGrounded)
+                animator.SetBool("Falling", false);
+
             animator.SetBool("Grounded", isGrounded);
             animator.SetFloat("SpeedX", Math.Abs(rigidBody.velocity.x));
             Move();
