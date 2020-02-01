@@ -11,16 +11,22 @@ namespace Assets.Scripts.Managers
     {
         #region Declarations --------------------------------------------------
 
-        [HideInInspector] public PlayerController player;
-
-        private Camera _mainCamera;
-
         public Collider2D startCameraBounds;
 
+        [HideInInspector]
+        public PlayerController player;
+        
+        private Camera _mainCamera;
+
         public float waitToRespawn;
+        public bool deathEffectEnabled;
         public GameObject deathEffect;
 
+        public bool healthBarEnabled;
         public HealthBar healthBar;
+
+        public bool coinsEnabled;
+        public bool keysEnabled;
 
         public int coinCount;
         public int keyCount;
@@ -28,6 +34,10 @@ namespace Assets.Scripts.Managers
         public Text coinText;
         public Text keyText;
 
+        public GameObject coinsParentObject;
+        public GameObject keysParentObject;
+
+        public bool isSoundEnabled;
         #endregion
 
 
@@ -35,25 +45,31 @@ namespace Assets.Scripts.Managers
 
         public void AddHealth(int value)
         {
-            healthBar.Add(value);
+            if(healthBarEnabled)
+                healthBar.Add(value);
         }
 
         public void RemoveHealth(int value)
         {
-            healthBar.Remove(value);
-            StartCoroutine(InvulnerableCo());
+            if (healthBarEnabled)
+            {
+                healthBar.Remove(value);
+                StartCoroutine(InvulnerableCo());
+            }
         }
 
         public void SetHealth(int value)
         {
-            healthBar.Set(value);
+            if(healthBarEnabled)
+                healthBar.Set(value);
         }
 
         public void SetHealthMax()
         {
             if (healthBar == null) return;
-            
-            healthBar.Set(healthBar.totalHealth);
+
+            if (healthBarEnabled)
+                healthBar.Set(healthBar.totalHealth);
         }
 
         public void RespawnPlayer()
@@ -64,28 +80,35 @@ namespace Assets.Scripts.Managers
 
         public void AddCoins(int count)
         {
-            SetCoinCount(coinCount + count);
+            if(coinsEnabled)
+                SetCoinCount(coinCount + count);
         }
 
         public void RemoveCoins(int count)
         {
-            SetCoinCount(coinCount - count);
+            if(coinsEnabled)
+                SetCoinCount(coinCount - count);
         }
 
         public void SetCoinCount(int count)
         {
-            coinCount = count;
-            UpdateCoinText();
+            if (coinsEnabled)
+            {
+                coinCount = count;
+                UpdateCoinText();
+            }
         }
 
         public void AddKey(int count)
         {
-            SetKeyCount(keyCount + count);
+            if (keysEnabled)
+                SetKeyCount(keyCount + count);
         }
 
         public void RemoveKey(int count)
         {
-            SetKeyCount(keyCount - count);
+            if (keysEnabled)
+                SetKeyCount(keyCount - count);
         }
 
         public void SetKeyCount(int count)
@@ -101,6 +124,7 @@ namespace Assets.Scripts.Managers
 
         private void Start()
         {
+            isSoundEnabled = false;
             player = FindObjectOfType<PlayerController>();
             _mainCamera = Camera.main;
             healthBar = FindObjectOfType<HealthBar>();
@@ -110,6 +134,10 @@ namespace Assets.Scripts.Managers
 
         private void Update()
         {
+            healthBar.gameObject.SetActive(healthBarEnabled);
+            coinsParentObject.gameObject.SetActive(coinsEnabled);
+            keysParentObject.gameObject.SetActive(keysEnabled);
+
             if (healthBar != null && healthBar.currentHealth <= 0 && !player.dead)
                 RespawnPlayer();
         }
@@ -147,7 +175,8 @@ namespace Assets.Scripts.Managers
                 : playerPosition;
 
             player.Kill();
-            Instantiate(deathEffect, effectPosition, playerRotation);
+            if(deathEffectEnabled)
+                Instantiate(deathEffect, effectPosition, playerRotation);
 
             yield return new WaitForSeconds(waitToRespawn);
 

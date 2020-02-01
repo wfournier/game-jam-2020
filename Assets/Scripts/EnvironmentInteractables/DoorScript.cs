@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Managers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.EnvironmentInteractables
 {
@@ -10,6 +11,13 @@ namespace Assets.Scripts.EnvironmentInteractables
         public int keysRequired;
         public bool requireCommand = true;
 
+        [Header("Key Prompt Settings")]
+        public float promptDuration = 60f;
+        public GameObject keyPromptObject;
+        public Text text;
+
+        private float _timeout;
+        private bool _startTime;
         private Collider2D _doorCollider;
         private GameObject _player;
         private LevelManager _levelManager;
@@ -17,6 +25,8 @@ namespace Assets.Scripts.EnvironmentInteractables
         // Start is called before the first frame update
         void Start()
         {
+            _startTime = false;
+            _timeout = promptDuration;
             _doorCollider = gameObject.GetComponent<BoxCollider2D>();
             _player = GameObject.FindWithTag("Player");
             _levelManager = GameObject.FindWithTag("Manager").GetComponent<LevelManager>();
@@ -25,18 +35,46 @@ namespace Assets.Scripts.EnvironmentInteractables
         // Update is called once per frame
         void Update()
         {
-            var keysOwned = _levelManager.keyCount;
-            if (_doorCollider.IsTouching(_player.GetComponent<BoxCollider2D>()) && 
+            UnlockDoor();
+
+            CountdownPrompt();
+        }
+
+        private void UnlockDoor()
+        {
+            if (_doorCollider.IsTouching(_player.GetComponent<BoxCollider2D>()) &&
                 (InputManager.VerticalDir == InputManager.VerticalDirections.Up || !requireCommand) &&
-                keysOwned >= keysRequired)
+                _levelManager.keyCount >= keysRequired)
             {
                 _levelManager.RemoveKey(keysRequired);
                 SceneManager.LoadScene(sceneName);
             }
-            else if (keysOwned < keysRequired)
+            else if (_levelManager.keyCount < keysRequired && InputManager.VerticalDir == InputManager.VerticalDirections.Up)
             {
-                Debug.Log("Not enough keys!");
-                //TODO tell players he needs more keys!
+                if (!_startTime)
+                    _startTime = true;
+            }
+        }
+
+        private void CountdownPrompt()
+        {
+            if (!_startTime || keysRequired < _levelManager.keyCount) return;
+
+            if (_timeout >= promptDuration)
+            {
+                text.text = keysRequired + "";
+                keyPromptObject.SetActive(true);
+            }
+
+            if (_timeout <= 0f)
+            {
+                keyPromptObject.SetActive(false);
+                _startTime = false;
+                _timeout = promptDuration;
+            }
+            else
+            {
+                _timeout--;
             }
         }
     }
