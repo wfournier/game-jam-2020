@@ -11,8 +11,10 @@ namespace Assets.Scripts.Controllers
 
         public Sprite buttonOpened;
         public Sprite buttonClosed;
-        public int buttonOrder;
-        public bool signal;
+
+        public int buttonNumber;    //Numéro du bouton
+        public bool signal;         //Envoie un signal true ou false
+        public bool order;          //Indique si le bouton fait partie d'un ordre 
 
         private SpriteRenderer _spriteRenderer;
         private AudioSource _audio;
@@ -43,7 +45,7 @@ namespace Assets.Scripts.Controllers
             }
         }
 
-        private void buttonReset()
+        public void buttonReset()
         {
             _spriteRenderer.sprite = buttonOpened;
             signal = false;
