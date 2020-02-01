@@ -15,13 +15,17 @@ namespace Assets.Scripts
     {
         public const float ForceModifier = 10.0f;
         public const KeyCode DashKeyCode = KeyCode.LeftShift;
-        public const float DashCooldown = 2.0f;
+        public const float DashDuration = 0.1f;
+        public const float DashCooldown = 1.5f;
+
+        public GameObject DashTrails = null;
 
         private LevelManager _levelManager = null;
+        private Vector2 _previousVelocity;
+        private float _currentDashTime = 0.0f;
         private float _currentTimeUntilReady = 0.0f;
         private DashState _currentDashState = DashState.Ready;
 
-        private GameObject _dashEffect = null;
 
         void Start()
         {
@@ -56,6 +60,9 @@ namespace Assets.Scripts
             // Current state is DASHING, trigger dash.
             else if (this._currentDashState == DashState.Dashing)
             {
+                this.DashTrails.SetActive(true);
+                this._currentDashTime += Time.fixedDeltaTime;
+
                 int playerDirectionX = Math.Sign(this._levelManager.player.rigidBody.velocity.x);
 
                 if (playerDirectionX == 0 || playerDirectionX == 1)
@@ -68,8 +75,15 @@ namespace Assets.Scripts
                     this._levelManager.player.rigidBody.AddForce(Vector2.left * Dash.ForceModifier, ForceMode2D.Impulse);
                 }
 
-                this._currentTimeUntilReady = Dash.DashCooldown;
-                this._currentDashState = DashState.Cooldown;
+                if (this._currentDashTime >= Dash.DashDuration)
+                {
+                    this.DashTrails.SetActive(false);
+                    this._levelManager.player.rigidBody.velocity = this._previousVelocity;
+
+                    this._currentDashTime = 0.0f;
+                    this._currentTimeUntilReady = Dash.DashCooldown;
+                    this._currentDashState = DashState.Cooldown;
+                }
             }
 
             // Current state is COOLDOWN, decrease timer and reset state if needed.
