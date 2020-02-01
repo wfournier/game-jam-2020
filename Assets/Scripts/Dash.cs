@@ -63,17 +63,8 @@ namespace Assets.Scripts
                 this.DashTrails.SetActive(true);
                 this._currentDashTime += Time.fixedDeltaTime;
 
-                int playerDirectionX = Math.Sign(this._levelManager.player.rigidBody.velocity.x);
-
-                if (playerDirectionX == 0 || playerDirectionX == 1)
-                {
-                    this._levelManager.player.rigidBody.AddForce(Vector2.right * Dash.ForceModifier, ForceMode2D.Impulse);
-                }
-
-                else
-                {
-                    this._levelManager.player.rigidBody.AddForce(Vector2.left * Dash.ForceModifier, ForceMode2D.Impulse);
-                }
+                float playerDirection = this._levelManager.player.transform.localScale.x;
+                this._levelManager.player.rigidBody.AddForce(Vector2.right * (Dash.ForceModifier * playerDirection), ForceMode2D.Impulse);
 
                 if (this._currentDashTime >= Dash.DashDuration)
                 {
