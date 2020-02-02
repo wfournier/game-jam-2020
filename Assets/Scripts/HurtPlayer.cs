@@ -24,6 +24,7 @@ namespace Assets.Scripts
 
         private void Update()
         {
+
         }
 
 //        private void OnCollisionEnter2D(Collision2D collision)

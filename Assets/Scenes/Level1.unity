@@ -6033,9 +6033,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a77185199d79ea40aa0e4b3492c1954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backgrounds:
-  - {fileID: 0}
-  - {fileID: 0}
+  backgrounds: []
   parallaxScale: 0.7
   parallaxReductionFactor: 4
   smoothing: 3
@@ -6504,7 +6502,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8565196962019851119}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f8e774b9cfd9a4b0c97789f7f5adb5f7, type: 3}
   m_Name: 
@@ -8089,6 +8087,10 @@ MonoBehaviour:
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
   canJump: 0
+  lowGravityTimeout: 15
+  lowGravityFallMultiplier: 1
+  verticalVelocity: 5
+  horizontalVelocity: 10.5
 --- !u!95 &8565196962019851125
 Animator:
   serializedVersion: 3
