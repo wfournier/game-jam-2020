@@ -37,6 +37,7 @@ namespace Assets.Scripts.Managers
         public GameObject keysParentObject;
 
         public AudioSource pickupSound;
+        public AudioSource damageSound;
         public bool isSoundEnabled;
 
         #endregion
@@ -52,6 +53,9 @@ namespace Assets.Scripts.Managers
 
         public void RemoveHealth(int value)
         {
+            if(isSoundEnabled)
+                damageSound.Play();
+            
             if (healthBarEnabled)
             {
                 healthBar.Remove(value);

@@ -1784,6 +1784,7 @@ Transform:
   - {fileID: 1833323805}
   - {fileID: 298359737}
   - {fileID: 2039057224217717862}
+  - {fileID: 694527672}
   m_Father: {fileID: 1644663654}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2024,6 +2025,81 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &694527671
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 641031394}
+    m_Modifications:
+    - target: {fileID: 8311197171757149033, guid: 8969e3ce429c445438144c681bb3932c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.9092307
+      objectReference: {fileID: 0}
+    - target: {fileID: 8311197171757149033, guid: 8969e3ce429c445438144c681bb3932c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.848947
+      objectReference: {fileID: 0}
+    - target: {fileID: 8311197171757149033, guid: 8969e3ce429c445438144c681bb3932c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8311197171757149033, guid: 8969e3ce429c445438144c681bb3932c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8311197171757149033, guid: 8969e3ce429c445438144c681bb3932c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8311197171757149033, guid: 8969e3ce429c445438144c681bb3932c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8311197171757149033, guid: 8969e3ce429c445438144c681bb3932c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8311197171757149033, guid: 8969e3ce429c445438144c681bb3932c,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8311197171757149033, guid: 8969e3ce429c445438144c681bb3932c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8311197171757149033, guid: 8969e3ce429c445438144c681bb3932c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8311197171757149033, guid: 8969e3ce429c445438144c681bb3932c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8955409397059159700, guid: 8969e3ce429c445438144c681bb3932c,
+        type: 3}
+      propertyPath: m_Name
+      value: Coin (Gold)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8969e3ce429c445438144c681bb3932c, type: 3}
+--- !u!4 &694527672 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8311197171757149033, guid: 8969e3ce429c445438144c681bb3932c,
+    type: 3}
+  m_PrefabInstance: {fileID: 694527671}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &763139738
 GameObject:
   m_ObjectHideFlags: 0
@@ -6162,8 +6238,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backgrounds: []
-  parallaxScale: 0.7
   parallaxReductionFactor: 4
+  parallaxScale: 0.7
   smoothing: 3
 --- !u!4 &662091715992478905
 Transform:
@@ -6636,8 +6712,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8e774b9cfd9a4b0c97789f7f5adb5f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DashTrails: {fileID: 8452114901111978550}
   DashCooldownProgressBar: {fileID: 7568478029762935229}
+  DashTrails: {fileID: 8452114901111978550}
 --- !u!114 &1684501425016426994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6725,11 +6801,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 664b36ad160e06b4782a9a44559d2ef4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: Level2
-  keysRequired: 0
-  requireCommand: 0
-  promptDuration: 0
   keyPromptObject: {fileID: 0}
+  keysRequired: 0
+  promptDuration: 0
+  requireCommand: 0
+  sceneName: Level2
   text: {fileID: 0}
 --- !u!1 &2039057224217717860
 GameObject:
