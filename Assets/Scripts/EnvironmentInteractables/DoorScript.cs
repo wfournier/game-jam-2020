@@ -29,7 +29,7 @@ namespace Assets.Scripts.EnvironmentInteractables
             _timeout = promptDuration;
             _doorCollider = gameObject.GetComponent<BoxCollider2D>();
             _player = GameObject.FindWithTag("Player");
-            _levelManager = GameObject.FindWithTag("Manager").GetComponent<LevelManager>();
+            _levelManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<LevelManager>();
         }
 
         // Update is called once per frame
@@ -42,17 +42,20 @@ namespace Assets.Scripts.EnvironmentInteractables
 
         private void UnlockDoor()
         {
-            if (_doorCollider.IsTouching(_player.GetComponent<BoxCollider2D>()) &&
-                (InputManager.VerticalDir == InputManager.VerticalDirections.Up || !requireCommand) &&
-                _levelManager.keyCount >= keysRequired)
+            if (_doorCollider.IsTouching(_player.GetComponent<BoxCollider2D>()))
             {
-                _levelManager.RemoveKey(keysRequired);
-                SceneManager.LoadScene(sceneName);
-            }
-            else if (_levelManager.keyCount < keysRequired && InputManager.VerticalDir == InputManager.VerticalDirections.Up)
-            {
-                if (!_startTime)
-                    _startTime = true;
+                if ((InputManager.VerticalDir == InputManager.VerticalDirections.Up || !requireCommand) &&
+                    _levelManager.keyCount >= keysRequired)
+                {
+                    _levelManager.RemoveKey(keysRequired);
+                    SceneManager.LoadScene(sceneName);
+                }
+                else if (_levelManager.keyCount < keysRequired &&
+                         InputManager.VerticalDir == InputManager.VerticalDirections.Up)
+                {
+                    if (!_startTime)
+                        _startTime = true;
+                }
             }
         }
 

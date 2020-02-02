@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Managers;
 using UnityEngine;
 
 namespace Assets.Scripts.Controllers
@@ -19,24 +20,23 @@ namespace Assets.Scripts.Controllers
         private SpriteRenderer _spriteRenderer;
         private AudioSource _audio;
 
+        private LevelManager _levelManager;
+
         #endregion
 
         // Start is called before the first frame update
         void Start()
         {
+            _levelManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<LevelManager>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _audio = GetComponent<AudioSource>();
         }
-
-        // Update is called once per frame
-        void Update()
-        { }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag("Player"))
             {
-                if (!signal)
+                if (!signal && _levelManager.isSoundEnabled)
                 {
                     _audio.Play();
                 }           
