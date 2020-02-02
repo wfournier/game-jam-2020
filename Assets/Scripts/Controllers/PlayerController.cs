@@ -263,6 +263,7 @@ namespace Assets.Scripts.Controllers
         public void Respawn()
         {
             gameObject.SetActive(true);
+            gameObject.transform.SetParent(levelManager.transform);
             dead = false;
         }
 
