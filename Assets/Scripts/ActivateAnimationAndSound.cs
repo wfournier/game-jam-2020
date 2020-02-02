@@ -1,6 +1,4 @@
-﻿using System;
-using Assets.Scripts.CameraScripts;
-using Assets.Scripts.Managers;
+﻿using Assets.Scripts.Managers;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -8,7 +6,7 @@ namespace Assets.Scripts
     public class ActivateAnimationAndSound : MonoBehaviour
     {
         #region Declarations --------------------------------------------------
-        
+
         public GameObject backgrounds;
         public GameObject effect;
         public AudioSource backgroundMusic;
@@ -16,7 +14,7 @@ namespace Assets.Scripts
         private LevelManager _levelManager;
         private GameObject _player;
         private GameObject _camera;
-        
+
         #endregion
 
 
@@ -38,9 +36,10 @@ namespace Assets.Scripts
                 _levelManager.deathEffectEnabled = true;
                 _levelManager.isSoundEnabled = true;
 
-                var effectPosition = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
+                var effectPosition =
+                    new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
                 _levelManager.PlayEffect(effect, effectPosition, effect.transform.rotation);
-                
+
                 backgroundMusic.Play();
                 Destroy(gameObject);
             }

@@ -12,7 +12,6 @@ namespace Assets.Scripts.Controllers
         public bool active;
 
         private SpriteRenderer _spriteRenderer;
-        
 
         #endregion
 

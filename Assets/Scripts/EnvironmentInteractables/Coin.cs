@@ -31,7 +31,7 @@ namespace Assets.Scripts.EnvironmentInteractables
             {
                 if (!_levelManager.coinsEnabled)
                     _levelManager.coinsEnabled = true;
-                
+
                 _levelManager.AddCoins(coinValue);
                 Destroy(gameObject);
             }

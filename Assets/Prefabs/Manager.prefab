@@ -1424,6 +1424,8 @@ MonoBehaviour:
   keyText: {fileID: 3006489219392387212}
   coinsParentObject: {fileID: 8022383718571858600}
   keysParentObject: {fileID: 3006489219867926254}
+  pickupSound: {fileID: 5915538357110318548, guid: deff587d2e7ce2e45bd545949ed6e7b4,
+    type: 3}
   isSoundEnabled: 1
 --- !u!114 &5128770282513912500
 MonoBehaviour:

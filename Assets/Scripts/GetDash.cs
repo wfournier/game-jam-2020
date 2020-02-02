@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts;
-using Assets.Scripts.Controllers;
 using UnityEngine;
 
 public class GetDash : MonoBehaviour
@@ -12,6 +11,5 @@ public class GetDash : MonoBehaviour
             Destroy(gameObject);
             other.GetComponent<Dash>().DashStart();
         }
-
     }
 }

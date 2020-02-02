@@ -1,16 +1,16 @@
 ﻿using Assets.Scripts.Managers;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SmashPlatform : MonoBehaviour
 {
-    private Collider2D playerCollision;
-    private PlatformEffector2D effector;
     private float actualWaitTime;
+    private PlatformEffector2D effector;
+    private Collider2D playerCollision;
+
     public float waitTime = 0.3f;
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         playerCollision = GameObject.FindGameObjectWithTag("Player").GetComponent<Collider2D>();
         effector = GetComponent<PlatformEffector2D>();
@@ -18,23 +18,22 @@ public class SmashPlatform : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-       
-        if (InputManager.VerticalDir == InputManager.VerticalDirections.Down && playerCollision.IsTouching(gameObject.GetComponent<Collider2D>()))
+        if (InputManager.VerticalDir == InputManager.VerticalDirections.Down &&
+            playerCollision.IsTouching(gameObject.GetComponent<Collider2D>()))
         {
-            
-            if (actualWaitTime <= 0){
+            if (actualWaitTime <= 0)
+            {
                 effector.rotationalOffset = 180f;
                 actualWaitTime = waitTime;
-            } else {
+            }
+            else
+            {
                 actualWaitTime -= Time.deltaTime;
             }
         }
-        if (InputManager.JumpButton)
-        {
-            effector.rotationalOffset = 0;
-        }
 
+        if (InputManager.JumpButton) effector.rotationalOffset = 0;
     }
 }

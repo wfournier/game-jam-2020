@@ -28,6 +28,10 @@ namespace Assets.Scripts.EnvironmentInteractables
             if (other.CompareTag("Player"))
             {
                 _levelManager.AddKey(1);
+
+                if (_levelManager.isSoundEnabled)
+                    _levelManager.PlayPickupSound();
+
                 Destroy(gameObject);
             }
         }

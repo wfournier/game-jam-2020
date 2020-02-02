@@ -13,9 +13,8 @@ namespace Assets.Scripts.Managers
 
         public Collider2D startCameraBounds;
 
-        [HideInInspector]
-        public PlayerController player;
-        
+        [HideInInspector] public PlayerController player;
+
         private Camera _mainCamera;
 
         public float waitToRespawn;
@@ -37,7 +36,9 @@ namespace Assets.Scripts.Managers
         public GameObject coinsParentObject;
         public GameObject keysParentObject;
 
+        public AudioSource pickupSound;
         public bool isSoundEnabled;
+
         #endregion
 
 
@@ -45,7 +46,7 @@ namespace Assets.Scripts.Managers
 
         public void AddHealth(int value)
         {
-            if(healthBarEnabled)
+            if (healthBarEnabled)
                 healthBar.Add(value);
         }
 
@@ -64,7 +65,7 @@ namespace Assets.Scripts.Managers
 
         public void SetHealth(int value)
         {
-            if(healthBarEnabled)
+            if (healthBarEnabled)
                 healthBar.Set(value);
         }
 
@@ -82,13 +83,13 @@ namespace Assets.Scripts.Managers
 
         public void AddCoins(int count)
         {
-            if(coinsEnabled)
+            if (coinsEnabled)
                 SetCoinCount(coinCount + count);
         }
 
         public void RemoveCoins(int count)
         {
-            if(coinsEnabled)
+            if (coinsEnabled)
                 SetCoinCount(coinCount - count);
         }
 
@@ -176,7 +177,7 @@ namespace Assets.Scripts.Managers
                 : playerPosition;
 
             player.Kill();
-            if(deathEffectEnabled)
+            if (deathEffectEnabled)
                 PlayEffect(deathEffect, effectPosition, playerRotation);
 
             yield return new WaitForSeconds(waitToRespawn);
@@ -192,6 +193,11 @@ namespace Assets.Scripts.Managers
         public void PlayEffect(GameObject effect, Vector3 pos, Quaternion rotation)
         {
             Instantiate(effect, pos, rotation);
+        }
+
+        public void PlayPickupSound()
+        {
+            pickupSound.Play();
         }
 
         private void UpdateCoinText()

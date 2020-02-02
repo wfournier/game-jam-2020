@@ -6,13 +6,12 @@ namespace Assets.Scripts.UI
 {
     public class StartScreen : MonoBehaviour
     {
-
         public string scene;
 
-        void Update()
+        private void Update()
         {
             if (InputManager.JumpButton)
-               SceneManager.LoadScene(scene);
+                SceneManager.LoadScene(scene);
         }
     }
 }
