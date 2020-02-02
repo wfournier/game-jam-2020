@@ -42,6 +42,11 @@ namespace Assets.Scripts
                 return;
             }
 
+            DashStart();
+        }
+
+        public void DashStart()
+        {
             this._currentDashState = DashState.Dashing;
         }
 
