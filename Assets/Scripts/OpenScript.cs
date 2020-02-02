@@ -6,6 +6,7 @@ using UnityEngine;
 public class OpenScript : MonoBehaviour
 {
     public Button _button;
+    public AstarPath boo;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +20,7 @@ public class OpenScript : MonoBehaviour
         if (_button.signal)
         {
             Destroy(gameObject);
+            boo.Scan();
         }
     }
 
