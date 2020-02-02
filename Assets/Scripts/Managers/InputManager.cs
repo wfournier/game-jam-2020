@@ -23,6 +23,7 @@ namespace Assets.Scripts.Managers
         public static VerticalDirections VerticalDir { get; set; }
         public static bool JumpButton { get; set; }
         public static bool AttackButton { get; set; }
+        public static bool DashButton { get; set; }
 
 
         // Start is called before the first frame update
@@ -31,6 +32,7 @@ namespace Assets.Scripts.Managers
             HorizontalDir = HorizontalDirections.Idle;
             VerticalDir = VerticalDirections.Idle;
             JumpButton = false;
+            DashButton = false;
         }
 
         // Update is called once per frame
@@ -41,7 +43,8 @@ namespace Assets.Scripts.Managers
             SetHorizontalDirection();
             SetVerticalDirection();
             JumpButton = Input.GetButtonDown("Jump");
-            AttackButton = Input.GetButtonDown("Attack");
+//            AttackButton = Input.GetButtonDown("Attack");
+            DashButton = Input.GetButtonDown("Dash");
         }
 
         public void Jump(bool jumping)
@@ -54,10 +57,13 @@ namespace Assets.Scripts.Managers
             AttackButton = attacking;
         }
 
+        public void Dash(bool dashing)
+        {
+            DashButton = dashing;
+        }
+
         private void SetHorizontalDirection()
         {
-            
-
             if (Input.GetAxisRaw("Horizontal") < -0.7f)
                 HorizontalDir = HorizontalDirections.Left;
             else if (Input.GetAxisRaw("Horizontal") > 0.7f)

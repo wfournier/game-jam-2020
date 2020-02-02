@@ -178,7 +178,7 @@ namespace Assets.Scripts.Managers
 
             player.Kill();
             if(deathEffectEnabled)
-                Instantiate(deathEffect, effectPosition, playerRotation);
+                PlayEffect(deathEffect, effectPosition, playerRotation);
 
             yield return new WaitForSeconds(waitToRespawn);
 
@@ -188,6 +188,11 @@ namespace Assets.Scripts.Managers
 
             SetHealthMax();
             SetCoinCount((int) Math.Ceiling((float) coinCount / 2));
+        }
+
+        public void PlayEffect(GameObject effect, Vector3 pos, Quaternion rotation)
+        {
+            Instantiate(effect, pos, rotation);
         }
 
         private void UpdateCoinText()
