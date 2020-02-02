@@ -126,7 +126,6 @@ namespace Assets.Scripts.Managers
 
         private void Start()
         {
-            isSoundEnabled = false;
             player = FindObjectOfType<PlayerController>();
             _mainCamera = Camera.main;
             healthBar = FindObjectOfType<HealthBar>();
