@@ -55,6 +55,7 @@ namespace Assets.Scripts.Controllers
         public float jumpVelocity;
         public float fallMultiplier = 2.5f;
         public float lowJumpMultiplier = 2f;
+        public float maxVelocity = 15f;
         public bool canJump = true;
         public bool wallJumpUnlocked = false;
 
@@ -97,6 +98,17 @@ namespace Assets.Scripts.Controllers
             animator.SetFloat("SpeedX", Math.Abs(rigidBody.velocity.x));
             Move();
             Jump();
+
+            var currentSpeed = Vector3.Magnitude(rigidBody.velocity);
+            if (currentSpeed > maxVelocity)
+            {
+                float brakeSpeed = currentSpeed = maxVelocity;
+                
+                Vector3 normalisedVelocity = rigidBody.velocity.normalized;
+                Vector3 brakeVelocity = normalisedVelocity * brakeSpeed;
+ 
+                rigidBody.AddForce(-brakeVelocity);
+            }
 
             if(lowGravityTimer > 0)
             {

@@ -467,7 +467,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 1206632519
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &3028534524307108105
@@ -837,7 +837,13 @@ MonoBehaviour:
   jumpVelocity: 7.5
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
+  maxVelocity: 15
   canJump: 1
+  wallJumpUnlocked: 0
+  lowGravityTimeout: 15
+  lowGravityFallMultiplier: 1
+  verticalVelocity: 5
+  horizontalVelocity: 10.5
 --- !u!114 &6830619315960051426
 MonoBehaviour:
   m_ObjectHideFlags: 0
