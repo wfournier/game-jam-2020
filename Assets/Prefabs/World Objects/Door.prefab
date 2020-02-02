@@ -357,7 +357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 664b36ad160e06b4782a9a44559d2ef4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: Level2
+  sceneName: Level1
   keysRequired: 2
   requireCommand: 1
   promptDuration: 60
