@@ -161,11 +161,6 @@ namespace Assets.Scripts.Controllers
             var activeVelocity = rigidBody.velocity;
             float xScale;
 
-            if (this.isTouchingWall)
-            {
-                return;
-            }
-
             if (InputManager.HorizontalDir == InputManager.HorizontalDirections.Left && canWallJumpLeft)
             {
                 if (activeVelocity.x > -moveSpeed)
@@ -212,10 +207,14 @@ namespace Assets.Scripts.Controllers
             else if (this.isTouchingWall && InputManager.JumpButton)
             {
                 lowGravityTimer = lowGravityTimeout;
-                 float direction = this.levelManager.player.rigidBody.transform.localScale.x;
 
-                // Looking left
-                if (direction < 0 && this.canWallJumpLeft)
+                int layerMask = 1 << LayerMask.NameToLayer("Ground");
+                Vector2 position = new Vector2(this.transform.position.x, this.transform.position.y);
+
+                RaycastHit2D leftHit = Physics2D.Raycast(position, Vector2.left, Mathf.Infinity, layerMask);
+                RaycastHit2D rightHit = Physics2D.Raycast(position, Vector2.right, Mathf.Infinity, layerMask);
+
+                if (leftHit.distance < rightHit.distance)
                 {
                     this.canWallJumpLeft = false;
                     this.canWallJumpRight = true;
@@ -226,8 +225,7 @@ namespace Assets.Scripts.Controllers
                     );
                 }
 
-                // Looking right
-                else if (direction > 0 && this.canWallJumpRight)
+                else if (rightHit.distance < leftHit.distance)
                 {
                     this.canWallJumpRight = false;
                     this.canWallJumpLeft = true;
@@ -239,7 +237,7 @@ namespace Assets.Scripts.Controllers
                 }
             }
 
-            var multiplier = lowGravityTimer > 0 ? lowGravityFallMultiplier : fallMultiplier;
+            float multiplier = lowGravityTimer > 0.0f ? lowGravityFallMultiplier : fallMultiplier;
 
             if (isTouchingWall)
             {
@@ -254,49 +252,6 @@ namespace Assets.Scripts.Controllers
 
             else
                 rigidBody.gravityScale = 1f;
-
-
-
-
-
-
-
-
-
-            //if (canJump && (InputManager.JumpButton || forceJump) && isGrounded)
-            //{
-            //    if (velocity <= 0f)
-            //    {
-            //        velocity = jumpVelocity;
-            //    }
-
-            //    if (this.isTouchingWall)
-            //    {
-            //        this.rigidBody.AddForce(
-            //            new Vector2(this.levelManager.player.transform.localScale.x, 1).normalized * velocity,
-            //            ForceMode2D.Impulse
-            //        );
-            //    }
-
-            //    else
-            //    {
-            //        this.rigidBody.AddForce(Vector2.up * velocity, ForceMode2D.Impulse);
-            //    }
-
-            //    isGrounded = false;
-            //}
-
-            //if (!this.isTouchingWall)
-            //{
-            //    if (rigidBody.velocity.y < 0)
-            //        rigidBody.gravityScale = fallMultiplier;
-
-            //    else if (rigidBody.velocity.y > 0 && !Input.GetButton("Jump"))
-            //        rigidBody.gravityScale = lowJumpMultiplier;
-
-            //    else
-            //        rigidBody.gravityScale = 1f;
-            //}
         }
 
         public void Kill()
