@@ -11,6 +11,7 @@ namespace Assets.Scripts
         
         public GameObject backgrounds;
         public GameObject effect;
+        public AudioSource backgroundMusic;
 
         private LevelManager _levelManager;
         private GameObject _player;
@@ -39,6 +40,8 @@ namespace Assets.Scripts
 
                 var effectPosition = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
                 _levelManager.PlayEffect(effect, effectPosition, effect.transform.rotation);
+                
+                backgroundMusic.Play();
                 Destroy(gameObject);
             }
         }
