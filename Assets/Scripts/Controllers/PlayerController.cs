@@ -209,29 +209,28 @@ namespace Assets.Scripts.Controllers
                 lowGravityTimer = lowGravityTimeout;
 
                 int layerMask = 1 << LayerMask.NameToLayer("Ground");
-                Vector2 position = new Vector2(this.transform.position.x, this.transform.position.y);
 
-                RaycastHit2D leftHit = Physics2D.Raycast(position, Vector2.left, Mathf.Infinity, layerMask);
-                RaycastHit2D rightHit = Physics2D.Raycast(position, Vector2.right, Mathf.Infinity, layerMask);
+                RaycastHit2D leftHit = Physics2D.Raycast(transform.position, Vector2.left, Mathf.Infinity, layerMask);
+                RaycastHit2D rightHit = Physics2D.Raycast(transform.position, Vector2.right, Mathf.Infinity, layerMask);
 
-                if (leftHit.distance < rightHit.distance)
-                {
-                    this.canWallJumpLeft = false;
-                    this.canWallJumpRight = true;
-
-                    this.rigidBody.AddForce(
-                        new Vector2(horizontalVelocity, verticalVelocity),
-                        ForceMode2D.Impulse
-                    );
-                }
-
-                else if (rightHit.distance < leftHit.distance)
+                if (leftHit.collider == null || rightHit.distance < leftHit.distance)
                 {
                     this.canWallJumpRight = false;
                     this.canWallJumpLeft = true;
 
                     this.rigidBody.AddForce(
                         new Vector2(horizontalVelocity * -1, verticalVelocity),
+                        ForceMode2D.Impulse
+                    );
+                }
+
+                else if (rightHit.collider == null || leftHit.distance < rightHit.distance)
+                {
+                    this.canWallJumpLeft = false;
+                    this.canWallJumpRight = true;
+
+                    this.rigidBody.AddForce(
+                        new Vector2(this.horizontalVelocity, this.verticalVelocity),
                         ForceMode2D.Impulse
                     );
                 }
