@@ -56,6 +56,7 @@ namespace Assets.Scripts.Controllers
         public float fallMultiplier = 2.5f;
         public float lowJumpMultiplier = 2f;
         public bool canJump = true;
+        public bool wallJumpUnlocked = false;
 
         private bool canWallJumpLeft = true;
         private bool canWallJumpRight = true;
@@ -204,7 +205,7 @@ namespace Assets.Scripts.Controllers
                 this.rigidBody.AddForce(Vector2.up * velocity, ForceMode2D.Impulse);
             }
 
-            else if (this.isTouchingWall && InputManager.JumpButton)
+            else if (wallJumpUnlocked && this.isTouchingWall && InputManager.JumpButton)
             {
                 lowGravityTimer = lowGravityTimeout;
 
