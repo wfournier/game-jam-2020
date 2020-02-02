@@ -8,11 +8,14 @@ namespace Assets.Scripts
     public class ActivateAnimationAndSound : MonoBehaviour
     {
         #region Declarations --------------------------------------------------
+        
         public GameObject backgrounds;
+        public GameObject effect;
 
         private LevelManager _levelManager;
         private GameObject _player;
         private GameObject _camera;
+        
         #endregion
 
 
@@ -33,6 +36,9 @@ namespace Assets.Scripts
                 backgrounds.SetActive(true);
                 _levelManager.deathEffectEnabled = true;
                 _levelManager.isSoundEnabled = true;
+
+                var effectPosition = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
+                _levelManager.PlayEffect(effect, effectPosition, effect.transform.rotation);
                 Destroy(gameObject);
             }
         }

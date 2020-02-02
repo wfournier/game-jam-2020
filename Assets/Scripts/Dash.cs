@@ -15,7 +15,6 @@ namespace Assets.Scripts
     public class Dash : MonoBehaviour
     {
         public const float ForceModifier = 10.0f;
-        public const KeyCode DashKeyCode = KeyCode.LeftShift;
         public const float DashDuration = 0.1f;
         public const float DashCooldown = 1.5f;
 
@@ -38,22 +37,20 @@ namespace Assets.Scripts
 
         void Update()
         {
-            if (this._currentDashState == DashState.Cooldown || this._currentDashState == DashState.Dashing)
+            if (this._currentDashState == DashState.Cooldown || this._currentDashState == DashState.Dashing || !InputManager.DashButton)
             {
                 return;
             }
 
-            bool wasTriggerKeyPressed = Input.GetKeyDown(Dash.DashKeyCode);
+            DashStart();
+        }
 
-            if (!wasTriggerKeyPressed)
-            {
-                return;
-            }
-
+        public void DashStart()
+        {
             this._currentDashState = DashState.Dashing;
         }
 
-        private void FixedUpdate()
+        private void LateUpdate()
         {
             if (this._currentDashState == DashState.Ready)
             {
