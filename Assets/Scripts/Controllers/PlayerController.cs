@@ -69,6 +69,9 @@ namespace Assets.Scripts.Controllers
         public float horizontalVelocity = 10.5f;
 
         private int lowGravityTimer = 0;
+
+        private AudioSource jumpAudio;
+        
         #endregion
 
 
@@ -82,6 +85,8 @@ namespace Assets.Scripts.Controllers
             respawnPosition = transform.position;
             levelManager = FindObjectOfType<LevelManager>();
             _feetContactBox = new Vector2(size.x, groundedSkin);
+
+            jumpAudio = GetComponent<AudioSource>();
         }
 
         private void Update()
@@ -212,6 +217,9 @@ namespace Assets.Scripts.Controllers
                 if (velocity <= 0f)
                 {
                     velocity = jumpVelocity;
+
+                    if (levelManager.isSoundEnabled)
+                        jumpAudio.Play();
                 }
 
                 this.rigidBody.AddForce(Vector2.up * velocity, ForceMode2D.Impulse);
@@ -236,7 +244,6 @@ namespace Assets.Scripts.Controllers
                         ForceMode2D.Impulse
                     );
                 }
-
                 else if (rightHit.collider == null || leftHit.distance < rightHit.distance)
                 {
                     this.canWallJumpLeft = false;
@@ -247,6 +254,13 @@ namespace Assets.Scripts.Controllers
                         ForceMode2D.Impulse
                     );
                 }
+                else
+                {
+                    return;
+                }
+
+                if (levelManager.isSoundEnabled)
+                    jumpAudio.Play();
             }
 
             float multiplier = lowGravityTimer > 0.0f ? lowGravityFallMultiplier : fallMultiplier;
