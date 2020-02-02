@@ -8,6 +8,7 @@ TagManager:
   - Item
   - Checkpoint
   - MovingPlatform
+  - Manager
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Ground
   - Player
   - KillZone
-  - 
+  - Mobs
   - 
   - 
   - 
@@ -42,6 +43,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Far_Background
+    uniqueID: 2601734179
+    locked: 0
+  - name: Background
+    uniqueID: 3069391513
+    locked: 0
   - name: World Objects
     uniqueID: 1185256177
     locked: 0
@@ -50,4 +57,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 2991395227
+    locked: 0
+  - name: UI
+    uniqueID: 1206632519
     locked: 0

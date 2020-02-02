@@ -1,30 +1,33 @@
-﻿using Assets.Scripts;
+﻿using Assets.Scripts.Managers;
 using UnityEngine;
 
-public class KillPlayer : MonoBehaviour
+namespace Assets.Scripts
 {
-    #region Declarations --------------------------------------------------
-
-    private LevelManager _levelManager;
-
-    #endregion
-
-
-    #region Private/Protected Methods -------------------------------------
-
-    private void Start()
+    public class KillPlayer : MonoBehaviour
     {
-        _levelManager = FindObjectOfType<LevelManager>();
-    }
+        #region Declarations --------------------------------------------------
 
-    private void Update()
-    {
-    }
+        private LevelManager _levelManager;
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player")) _levelManager.RespawnPlayer();
-    }
+        #endregion
 
-    #endregion
+
+        #region Private/Protected Methods -------------------------------------
+
+        private void Start()
+        {
+            _levelManager = FindObjectOfType<LevelManager>();
+        }
+
+        private void Update()
+        {
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.CompareTag("Player")) _levelManager.RespawnPlayer();
+        }
+
+        #endregion
+    }
 }
