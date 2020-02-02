@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts;
+using Assets.Scripts.Controllers;
 using UnityEngine;
 
 public class GetDash : MonoBehaviour
