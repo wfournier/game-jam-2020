@@ -1,19 +1,18 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Managers;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.UI
 {
     public class StartScreen : MonoBehaviour
     {
 
-        //public SceneAsset scene;
+        public string scene;
 
-        //// Update is called once per frame
-        //void Update()
-        //{
-        //    if (!Input.GetMouseButtonDown(0))
-        //        return;
-
-        //    SceneManager.LoadScene(scene.name);
-        //}
+        void Update()
+        {
+            if (InputManager.JumpButton)
+               SceneManager.LoadScene(scene);
+        }
     }
 }
