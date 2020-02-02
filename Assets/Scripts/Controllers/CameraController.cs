@@ -43,7 +43,7 @@ namespace Assets.Scripts.Controllers
 
             
             var x = Mathf.Clamp(newX, _min.x + cameraHalfWidth, _max.x - cameraHalfWidth);
-            var y = Mathf.Clamp(_targetPosition.y, _min.y + _cameraOrthographicSize, _max.y + cameraHalfWidth);
+            var y = Mathf.Clamp(_targetPosition.y, _min.y + _cameraOrthographicSize, _max.y - _cameraOrthographicSize);
 
             _targetPosition = new Vector3(x, y, transform.position.z);
 
