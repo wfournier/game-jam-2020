@@ -56,6 +56,17 @@ namespace Assets.Scripts.Controllers
         public float fallMultiplier = 2.5f;
         public float lowJumpMultiplier = 2f;
         public bool canJump = true;
+
+        private bool canWallJumpLeft = true;
+        private bool canWallJumpRight = true;
+
+        [Header("Wall Jump Settings")]
+        public int lowGravityTimeout = 15;
+        public float lowGravityFallMultiplier = 1f;
+        public float verticalVelocity = 5f;
+        public float horizontalVelocity = 10.5f;
+
+        private int lowGravityTimer = 0;
         #endregion
 
 
@@ -85,13 +96,18 @@ namespace Assets.Scripts.Controllers
             animator.SetFloat("SpeedX", Math.Abs(rigidBody.velocity.x));
             Move();
             Jump();
+
+            if(lowGravityTimer > 0)
+            {
+                lowGravityTimer --;
+            }
         }
 
         private void FixedUpdate()
         {
             var boxCenter = (Vector2) transform.position + (size.y + _feetContactBox.y) * 0.5f * Vector2.down;
 
-            isGrounded = Physics2D.OverlapBox(boxCenter, _feetContactBox, 0f, groundLayer);
+            isGrounded = !this.isTouchingWall && Physics2D.OverlapBox(boxCenter, _feetContactBox, 0f, groundLayer);
             isInKillZone = Physics2D.OverlapBox(boxCenter, _feetContactBox, 0f, killZoneLayer);
         }
 
@@ -113,12 +129,20 @@ namespace Assets.Scripts.Controllers
 
             else if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
             {
-                var pointOfContact = other.contacts[0].normal;
+                Vector2 pointOfContact = other.GetContact(0).normal;
 
-                // Checks if we hit left or right edge, respectively.
                 if (pointOfContact == Vector2.left || pointOfContact == Vector2.right)
                 {
+                    this.isGrounded = false;
                     this.isTouchingWall = true;
+                }
+
+                else if (pointOfContact == Vector2.up)
+                {
+                    this.isGrounded = true;
+                    this.isTouchingWall = false;
+                    this.canWallJumpLeft = true;
+                    this.canWallJumpRight = true;
                 }
             }
         }
@@ -129,14 +153,15 @@ namespace Assets.Scripts.Controllers
                 transform.parent = null;
 
             this.isTouchingWall = false;
+            this.isGrounded = false;
         }
 
         private void Move()
         {
             var activeVelocity = rigidBody.velocity;
             float xScale;
-            
-            if (InputManager.HorizontalDir == InputManager.HorizontalDirections.Left)
+
+            if (InputManager.HorizontalDir == InputManager.HorizontalDirections.Left && canWallJumpLeft)
             {
                 if (activeVelocity.x > -moveSpeed)
                 {
@@ -146,7 +171,7 @@ namespace Assets.Scripts.Controllers
                 xScale = -1;
             }
 
-            else if (InputManager.HorizontalDir == InputManager.HorizontalDirections.Right)
+            else if (InputManager.HorizontalDir == InputManager.HorizontalDirections.Right && canWallJumpRight)
             {
                 if (activeVelocity.x < moveSpeed)
                 {
@@ -168,40 +193,65 @@ namespace Assets.Scripts.Controllers
 
         public void Jump(bool forceJump = false, float velocity = 0f)
         {
-            if (canJump && (InputManager.JumpButton || forceJump) && isGrounded)
+            // Should perform normal jump
+            if (this.canJump && this.isGrounded && (InputManager.JumpButton || forceJump))
             {
                 if (velocity <= 0f)
                 {
                     velocity = jumpVelocity;
                 }
 
-                if (this.isTouchingWall)
+                this.rigidBody.AddForce(Vector2.up * velocity, ForceMode2D.Impulse);
+            }
+
+            else if (this.isTouchingWall && InputManager.JumpButton)
+            {
+                lowGravityTimer = lowGravityTimeout;
+
+                int layerMask = 1 << LayerMask.NameToLayer("Ground");
+                Vector2 position = new Vector2(this.transform.position.x, this.transform.position.y);
+
+                RaycastHit2D leftHit = Physics2D.Raycast(position, Vector2.left, Mathf.Infinity, layerMask);
+                RaycastHit2D rightHit = Physics2D.Raycast(position, Vector2.right, Mathf.Infinity, layerMask);
+
+                if (leftHit.distance < rightHit.distance)
                 {
+                    this.canWallJumpLeft = false;
+                    this.canWallJumpRight = true;
+
                     this.rigidBody.AddForce(
-                        new Vector2(this.levelManager.player.transform.localScale.x, 1).normalized * velocity,
+                        new Vector2(horizontalVelocity, verticalVelocity),
                         ForceMode2D.Impulse
                     );
                 }
 
-                else
+                else if (rightHit.distance < leftHit.distance)
                 {
-                    this.rigidBody.AddForce(Vector2.up * velocity, ForceMode2D.Impulse);
+                    this.canWallJumpRight = false;
+                    this.canWallJumpLeft = true;
+
+                    this.rigidBody.AddForce(
+                        new Vector2(horizontalVelocity * -1, verticalVelocity),
+                        ForceMode2D.Impulse
+                    );
                 }
-
-                isGrounded = false;
             }
 
-            if (!this.isTouchingWall)
+            float multiplier = lowGravityTimer > 0.0f ? lowGravityFallMultiplier : fallMultiplier;
+
+            if (isTouchingWall)
             {
-                if (rigidBody.velocity.y < 0)
-                    rigidBody.gravityScale = fallMultiplier;
-
-                else if (rigidBody.velocity.y > 0 && !Input.GetButton("Jump"))
-                    rigidBody.gravityScale = lowJumpMultiplier;
-
-                else
-                    rigidBody.gravityScale = 1f;
+                multiplier = 0.3f;
             }
+
+            if (rigidBody.velocity.y < 0)
+                rigidBody.gravityScale = multiplier;
+
+            else if (rigidBody.velocity.y > 0 && !Input.GetButton("Jump"))
+                rigidBody.gravityScale = lowJumpMultiplier;
+
+            else
+                rigidBody.gravityScale = 1f;
         }
 
         public void Kill()
