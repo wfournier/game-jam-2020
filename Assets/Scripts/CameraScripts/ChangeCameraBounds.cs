@@ -4,19 +4,17 @@ using UnityEngine;
 
 public class ChangeCameraBounds : MonoBehaviour
 {
-
     private CameraController activeCamera;
     public Collider2D leftBound;
     public Collider2D rightBound;
-    
-    void Start()
+
+    private void Start()
     {
         activeCamera = FindObjectOfType<CameraController>();
     }
 
-    void Update()
+    private void Update()
     {
-        
     }
 
     private void ChangeBounds(int direction)
@@ -26,17 +24,11 @@ public class ChangeCameraBounds : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
-        {
-            ChangeBounds(Math.Sign(other.transform.localScale.x));
-        }
+        if (other.CompareTag("Player")) ChangeBounds(Math.Sign(other.transform.localScale.x));
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
-        {
-            ChangeBounds(Math.Sign(other.transform.localScale.x));
-        }
+        if (other.CompareTag("Player")) ChangeBounds(Math.Sign(other.transform.localScale.x));
     }
 }

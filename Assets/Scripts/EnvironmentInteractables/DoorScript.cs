@@ -7,23 +7,23 @@ namespace Assets.Scripts.EnvironmentInteractables
 {
     public class DoorScript : MonoBehaviour
     {
-        public string sceneName;
-        public int keysRequired;
-        public bool requireCommand = true;
-
-        [Header("Key Prompt Settings")]
-        public float promptDuration = 60f;
-        public GameObject keyPromptObject;
-        public Text text;
+        private Collider2D _doorCollider;
+        private LevelManager _levelManager;
+        private GameObject _player;
+        private bool _startTime;
 
         private float _timeout;
-        private bool _startTime;
-        private Collider2D _doorCollider;
-        private GameObject _player;
-        private LevelManager _levelManager;
+        public GameObject keyPromptObject;
+        public int keysRequired;
+
+        [Header("Key Prompt Settings")] public float promptDuration = 60f;
+
+        public bool requireCommand = true;
+        public string sceneName;
+        public Text text;
 
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
             _startTime = false;
             _timeout = promptDuration;
@@ -33,7 +33,7 @@ namespace Assets.Scripts.EnvironmentInteractables
         }
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
             UnlockDoor();
 

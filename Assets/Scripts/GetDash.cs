@@ -11,6 +11,5 @@ public class GetDash : MonoBehaviour
             Destroy(gameObject);
             other.GetComponent<Dash>().DashStart();
         }
-
     }
 }
