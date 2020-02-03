@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Assets.Scripts.Managers;
+﻿using Assets.Scripts.Managers;
 using UnityEngine;
 
 public class UnlockWallJump : MonoBehaviour
 {
-
     private LevelManager _levelManager;
-    
-    void Start()
+
+    private void Start()
     {
         _levelManager = FindObjectOfType<LevelManager>();
     }

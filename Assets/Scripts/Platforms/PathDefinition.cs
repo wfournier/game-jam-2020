@@ -9,10 +9,7 @@ namespace Assets.Scripts.Platforms
 
         public IEnumerator<Transform> GetPathsEnumerator()
         {
-            if (points == null || points.Length < 1)
-            {
-                yield break;
-            }
+            if (points == null || points.Length < 1) yield break;
 
             var direction = 1;
             var index = 0;
@@ -22,13 +19,8 @@ namespace Assets.Scripts.Platforms
                 yield return points[index];
 
                 if (index <= 0)
-                {
                     direction = 1;
-                }
-                else if (index >= points.Length - 1)
-                {
-                    direction = -1;
-                }
+                else if (index >= points.Length - 1) direction = -1;
 
                 index += direction;
             }
@@ -36,15 +28,9 @@ namespace Assets.Scripts.Platforms
 
         public void OnDrawGizmos()
         {
-            if (points == null || points.Length < 2)
-            {
-                return;
-            }
+            if (points == null || points.Length < 2) return;
 
-            for (var i = 1; i < points.Length; i++)
-            {
-                Gizmos.DrawLine(points[i - 1].position, points[i].position);
-            }
+            for (var i = 1; i < points.Length; i++) Gizmos.DrawLine(points[i - 1].position, points[i].position);
         }
     }
 }

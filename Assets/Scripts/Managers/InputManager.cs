@@ -4,20 +4,21 @@ namespace Assets.Scripts.Managers
 {
     public class InputManager : MonoBehaviour
     {
-        public bool testAsMobileDevice;
-
         public enum HorizontalDirections
         {
             Left,
             Right,
             Idle
         }
+
         public enum VerticalDirections
         {
             Up,
             Down,
             Idle
         }
+
+        public bool testAsMobileDevice;
 
         public static HorizontalDirections HorizontalDir { get; set; }
         public static VerticalDirections VerticalDir { get; set; }
@@ -27,7 +28,7 @@ namespace Assets.Scripts.Managers
 
 
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
             HorizontalDir = HorizontalDirections.Idle;
             VerticalDir = VerticalDirections.Idle;
@@ -36,9 +37,10 @@ namespace Assets.Scripts.Managers
         }
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
-            if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer || testAsMobileDevice) return;
+            if (Application.platform == RuntimePlatform.Android ||
+                Application.platform == RuntimePlatform.IPhonePlayer || testAsMobileDevice) return;
 
             SetHorizontalDirection();
             SetVerticalDirection();

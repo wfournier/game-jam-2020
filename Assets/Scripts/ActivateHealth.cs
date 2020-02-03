@@ -4,8 +4,10 @@ using UnityEngine;
 public class ActivateHealth : MonoBehaviour
 {
     #region Declarations --------------------------------------------------
+
     private LevelManager _levelManager;
     //private GameObject _player;
+
     #endregion
 
 

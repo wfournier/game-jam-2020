@@ -11,12 +11,12 @@ namespace Assets.Scripts.Platforms
             Lerp
         }
 
-        public FollowType type = FollowType.MoveTowards;
+        private IEnumerator<Transform> _currentPoint;
+        public float maxDistanceToGoal = .1f;
         public PathDefinition path;
         public float speed = 1;
-        public float maxDistanceToGoal = .1f;
 
-        private IEnumerator<Transform> _currentPoint;
+        public FollowType type = FollowType.MoveTowards;
 
         public void Start()
         {
@@ -32,7 +32,7 @@ namespace Assets.Scripts.Platforms
             if (_currentPoint == null)
                 return;
 
-            if (_currentPoint.Current != null) 
+            if (_currentPoint.Current != null)
                 transform.position = _currentPoint.Current.position;
         }
 
@@ -42,9 +42,11 @@ namespace Assets.Scripts.Platforms
                 return;
 
             if (type == FollowType.MoveTowards)
-                transform.position = Vector3.MoveTowards(transform.position, _currentPoint.Current.position, Time.deltaTime * speed);
+                transform.position = Vector3.MoveTowards(transform.position, _currentPoint.Current.position,
+                    Time.deltaTime * speed);
             else if (type == FollowType.Lerp)
-                transform.position = Vector3.Lerp(transform.position, _currentPoint.Current.position, Time.deltaTime * speed);
+                transform.position = Vector3.Lerp(transform.position, _currentPoint.Current.position,
+                    Time.deltaTime * speed);
 
 
             var distanceSquared = (transform.position - _currentPoint.Current.position).sqrMagnitude;

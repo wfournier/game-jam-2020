@@ -11,7 +11,8 @@ namespace Assets.Scripts
         private LevelManager _levelManager;
         public int damage;
 
-        public bool inverseXDirection = false;
+        public bool inverseXDirection;
+
         #endregion
 
 
@@ -24,7 +25,6 @@ namespace Assets.Scripts
 
         private void Update()
         {
-
         }
 
 //        private void OnCollisionEnter2D(Collision2D collision)
@@ -61,14 +61,14 @@ namespace Assets.Scripts
                 var directionY = Math.Sign(playerVelocity.y);
                 if (playerVelocity.x == 0 && playerVelocity.y == 0)
                 {
-                    _levelManager.RemoveHealth(10*damage);
+                    _levelManager.RemoveHealth(10 * damage);
                     //directionX = -Math.Sign(_levelManager.player.transform.position.x - gameObject.transform.position.x);
                     //playerVelocity.x = -12*directionX;
                     //playerVelocity.x = 20;
                     //playerVelocity.x = 5 * directionX;
                     return;
                 }
-                    
+
 
                 var tempPlayerVelocityX = -playerVelocity.x;
 
@@ -76,7 +76,8 @@ namespace Assets.Scripts
                     tempPlayerVelocityX *= -1;
 
                 _levelManager.player.GetComponent<Rigidbody2D>().AddForce(
-                    new Vector2(tempPlayerVelocityX - 10 * directionX, -playerVelocity.y - 10 * directionY), ForceMode2D.Impulse);
+                    new Vector2(tempPlayerVelocityX - 10 * directionX, -playerVelocity.y - 10 * directionY),
+                    ForceMode2D.Impulse);
             }
         }
 
